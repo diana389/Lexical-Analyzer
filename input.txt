@@ -1,3 +1,6 @@
 buna
 class
 pa
+    private String serialNumber; private String model;
+
+    private double price;

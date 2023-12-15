@@ -12,10 +12,12 @@ class *classes;
 
 %}
 
-%s CLASS_STATE NEW_OBJ_STATE
+%s CLASS_STATE CLASS_ATTR CLASS_ATTR2 CLASS_ATTR3 NEW_OBJ_STATE
+p private|public
+alpha [a-zA-Z]+
 
 %%
-<INITIAL>class   {  
+class   {  
                     BEGIN(CLASS_STATE); 
                     class_num++;
                     if(class_num == 1)
@@ -35,18 +37,10 @@ class *classes;
                             BEGIN(INITIAL); 
                          }
 
-<INITIAL>new     {  
-                    BEGIN(NEW_OBJ_STATE);
-                 }
-
-<NEW_OBJ_STATE>[a-zA-Z]+    {  
-                                for (int i = 0; i < class_num; i++) {
-                                    if(strcmp(classes[i].name, yytext) == 0)
-                                        obj_num[i]++;
-                                }
-                                // printf("%s\n", yytext);
-                                BEGIN(INITIAL); 
-                            }
+[[:space:]]*(public|private)[[:space:]][a-zA-Z\[\]]+[[:space:]][a-zA-Z]+; {
+                    // This part recognizes the specified line pattern
+                    printf("%s\n", yytext);
+                }
 
 .|\n    { }
 %%
