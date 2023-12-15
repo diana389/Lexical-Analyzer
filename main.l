@@ -1,15 +1,42 @@
 %{
-#include <stdio.h>
-#include <stdlib.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <stdbool.h>
 
-typedef struct class {
-    char* name;
-}class;
+    typedef struct attr {
+        char* name;
+        bool GetMethod;
+        bool SetMethod;
+    }attr;
 
-int class_num = 0;
-int obj_num[100] = {0};
-class *classes;
+    typedef struct class {
+        char* name;
+        attr* attributes;
+        int attr_num;
+    }class;
 
+    int class_num = 0;
+    int obj_num[100] = {0};
+    class *classes;
+
+    char* getLastWord(char *sentence) {
+        // Create a copy of the sentence as strtok modifies the input
+        char *lastWord = (char*)malloc(100 * sizeof(char));
+
+        // Tokenize the sentence
+        char *token = strtok(sentence, " \t\n");
+
+        // Find the last token
+        while (token != NULL) {
+            strcpy(lastWord, token);
+            token = strtok(NULL, " \t\n");
+        }
+
+        lastWord[strlen(lastWord) - 1] = '\0';
+
+        return lastWord;
+    }
 %}
 
 %s CLASS_STATE CLASS_ATTR CLASS_ATTR2 CLASS_ATTR3 NEW_OBJ_STATE
@@ -34,12 +61,27 @@ class   {
 <CLASS_STATE>[a-zA-Z]+   {  
                             classes[class_num - 1].name = (char *)malloc((yyleng + 1) * sizeof(char));
                             strcpy(classes[class_num - 1].name, yytext);
-                            BEGIN(INITIAL); 
+                            classes[class_num - 1].attr_num = 0;
+                            BEGIN(CLASS_ATTR); 
                          }
 
-[[:space:]]*(public|private)[[:space:]][a-zA-Z\[\]]+[[:space:]][a-zA-Z]+; {
+<CLASS_ATTR>[[:space:]]*(public|private)[[:space:]][a-zA-Z\[\]]+[[:space:]][a-zA-Z]+; {
                     // This part recognizes the specified line pattern
-                    printf("%s\n", yytext);
+                    char *lastWord = getLastWord(yytext);
+                    // printf("%s\n", lastWord);
+
+                    class *current_class = &classes[class_num - 1];
+                    current_class->attr_num++;
+                
+                    if(current_class->attr_num == 1)
+                        current_class->attributes = (attr *)malloc(sizeof(attr));
+                    else 
+                        current_class->attributes = (attr *)realloc(current_class->attributes, current_class->attr_num * sizeof(attr));
+                
+                    current_class->attributes[current_class->attr_num - 1].name = (char *)malloc((strlen(lastWord) + 1) * sizeof(char));
+                    strcpy(current_class->attributes[current_class->attr_num - 1].name, lastWord);
+                    //classes[class_num - 1].attributes[classes[class_num - 1].attr_num - 1].SetMethod = false;
+                    //classes[class_num - 1].attributes[classes[class_num - 1].attr_num - 1].SetMethod = false;
                 }
 
 .|\n    { }
@@ -64,6 +106,14 @@ int main(int argc, char **argv) {
     yyin = inputFile; // Set the input file for Flex
 
     yylex(); // Start lexical analysis
+
+    for (int i = 0; i < class_num; i++) {
+        printf("%s : %d\n", classes[i].name, classes[i].attr_num);
+            for (int j = 0; j < classes[i].attr_num; j++) {
+                printf("%s ", classes[i].attributes[j].name);
+            }
+        printf("\n");
+    }
 
     printf("Clase %d: ", class_num);
 
