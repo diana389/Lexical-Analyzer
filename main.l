@@ -3,6 +3,7 @@
     #include <stdlib.h>
     #include <string.h>
     #include <stdbool.h>
+    #include <ctype.h>
 
     typedef struct attr {
         char* name;
@@ -17,6 +18,7 @@
     }class;
 
     int class_num = 0;
+    int pubic_class_num = 0;
     int obj_num[100] = {0};
     class *classes;
 
@@ -37,6 +39,31 @@
 
         return lastWord;
     }
+
+    void extractAttrFromMethod(char *method) {
+        strcpy(method, method + 3);
+        method[0] = tolower(method[0]);
+    }
+
+    void addSetMethodToAttr(char *method) {
+        for(int i = 0; i < class_num; i++) {
+            for(int j = 0; j < classes[i].attr_num; j++) {
+                if(strcmp(classes[i].attributes[j].name, method) == 0) {
+                    classes[i].attributes[j].GetMethod = true;
+                }
+            }
+        }
+    }
+
+    void addGetMethodToAttr(char *method) {
+        for(int i = 0; i < class_num; i++) {
+            for(int j = 0; j < classes[i].attr_num; j++) {
+                if(strcmp(classes[i].attributes[j].name, method) == 0) {
+                    classes[i].attributes[j].SetMethod = true;
+                }
+            }
+        }
+    }
 %}
 
 %s CLASS_STATE CLASS_ATTR CLASS_ATTR2 CLASS_ATTR3 NEW_OBJ_STATE
@@ -44,6 +71,27 @@ p private|public
 alpha [a-zA-Z]+
 
 %%
+public[[:space:]]class   {  
+                            BEGIN(CLASS_STATE); 
+                            class_num++;
+                            pubic_class_num++;
+
+                            if(pubic_class_num > 1) {
+                                printf("Eroare: mai multe clase publice\n");
+                                exit(1);
+                            }
+
+                            if(class_num == 1)
+                                classes = (class *)malloc(sizeof(class));
+                            else 
+                                classes = (class *)realloc(classes, class_num * sizeof(class));
+
+                            if (classes == NULL) {
+                                fprintf(stderr, "Memory allocation failed\n");
+                                exit(1);
+                            }
+                        }
+
 class   {  
                     BEGIN(CLASS_STATE); 
                     class_num++;
@@ -54,7 +102,7 @@ class   {
 
                     if (classes == NULL) {
                         fprintf(stderr, "Memory allocation failed\n");
-                        return 1;
+                        exit(1);
                     }
                  }
 
@@ -80,10 +128,23 @@ class   {
                 
                     current_class->attributes[current_class->attr_num - 1].name = (char *)malloc((strlen(lastWord) + 1) * sizeof(char));
                     strcpy(current_class->attributes[current_class->attr_num - 1].name, lastWord);
-                    //classes[class_num - 1].attributes[classes[class_num - 1].attr_num - 1].SetMethod = false;
-                    //classes[class_num - 1].attributes[classes[class_num - 1].attr_num - 1].SetMethod = false;
+                    current_class->attributes[current_class->attr_num - 1].SetMethod = false;
+                    current_class->attributes[current_class->attr_num - 1].SetMethod = false;
                 }
 
+<CLASS_ATTR>set[a-zA-Z]+    {
+                                printf("%s\n", yytext);
+                                extractAttrFromMethod(yytext);
+                                printf("%s\n", yytext);
+                                addSetMethodToAttr(yytext);
+                            }
+
+<CLASS_ATTR>get[a-zA-Z]+    {
+                                printf("%s\n", yytext);
+                                extractAttrFromMethod(yytext);
+                                printf("%s\n", yytext);
+                                addGetMethodToAttr(yytext);
+                            }
 .|\n    { }
 %%
 
@@ -110,7 +171,8 @@ int main(int argc, char **argv) {
     for (int i = 0; i < class_num; i++) {
         printf("%s : %d\n", classes[i].name, classes[i].attr_num);
             for (int j = 0; j < classes[i].attr_num; j++) {
-                printf("%s ", classes[i].attributes[j].name);
+                printf("%s: ", classes[i].attributes[j].name);
+                printf("set: %d get: %d\n", classes[i].attributes[j].SetMethod, classes[i].attributes[j].GetMethod);
             }
         printf("\n");
     }
@@ -128,7 +190,34 @@ int main(int argc, char **argv) {
     }
 
     for (int i = 0; i < class_num; i++) {
-        printf("%s: \n", classes[i].name);
+        if(classes[i].attr_num == 0) {
+            continue;
+        }
+
+        printf("%s: ", classes[i].name);
+
+        bool hasSet = true;
+        bool hasGet = true;
+        for (int j = 0; j < classes[i].attr_num; j++) {
+            if (classes[i].attributes[j].SetMethod == false) {
+                hasSet = false;
+            }
+            if (classes[i].attributes[j].GetMethod == false) {
+                hasGet = false;
+            }
+        }
+
+        if (hasSet == true && hasGet == true) {
+            printf("Metodele “get” si “set” sunt implementate\n");
+        }
+
+        if (hasGet == false) {
+            printf("Metoda “get” nu este implementata pentru toate atributele\n");
+        }
+        
+        if (hasSet == false) {
+            printf("Metoda “set” nu este implementata pentru toate atributele\n");
+        }
     }
 
     // Free allocated memory

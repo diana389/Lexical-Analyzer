@@ -351,8 +351,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 5
-#define YY_END_OF_BUFFER 6
+#define YY_NUM_RULES 8
+#define YY_END_OF_BUFFER 9
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -360,13 +360,17 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[47] =
+static const flex_int16_t yy_accept[84] =
     {   0,
         0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    6,    4,    4,    2,    2,    4,    4,    0,
-        2,    2,    0,    0,    0,    0,    0,    2,    0,    0,
-        0,    2,    0,    0,    1,    1,    0,    0,    0,    0,
-        0,    0,    0,    0,    3,    0
+        0,    0,    9,    7,    7,    7,    3,    3,    3,    7,
+        7,    7,    7,    0,    0,    3,    3,    3,    0,    0,
+        0,    0,    0,    0,    0,    0,    3,    3,    0,    0,
+        0,    0,    0,    0,    0,    3,    3,    0,    6,    0,
+        0,    5,    2,    0,    2,    3,    0,    0,    0,    0,
+        3,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    4,    0,
+        1,    1,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -382,8 +386,8 @@ static const YY_CHAR yy_ec[256] =
         5,    5,    5,    5,    5,    5,    5,    5,    5,    5,
         6,    1,    6,    1,    1,    1,    7,    8,    9,    5,
 
-       10,    5,    5,    5,   11,    5,    5,   12,    5,    5,
-        5,   13,    5,   14,   15,   16,   17,   18,    5,    5,
+       10,    5,   11,    5,   12,    5,    5,   13,    5,    5,
+        5,   14,    5,   15,   16,   17,   18,   19,    5,    5,
         5,    5,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -401,60 +405,82 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[19] =
+static const YY_CHAR yy_meta[20] =
     {   0,
         1,    2,    2,    1,    3,    4,    3,    3,    3,    3,
-        3,    3,    5,    3,    3,    3,    3,    3
+        3,    3,    3,    5,    3,    3,    3,    3,    3
     } ;
 
-static const flex_int16_t yy_base[53] =
+static const flex_int16_t yy_base[92] =
     {   0,
-       63,   62,    0,    9,   17,    0,   61,   60,   59,   58,
-       57,   56,   64,   73,   51,    0,   50,   48,    0,   53,
-        0,   52,   45,    7,   46,   48,   40,   39,   34,   34,
-       30,   27,   22,   17,   73,    0,   11,   16,    6,    5,
-        0,   20,    0,    1,   73,   73,   30,   35,   38,   42,
-       45,   48
-    } ;
-
-static const flex_int16_t yy_def[53] =
-    {   0,
-       47,   47,   48,   48,   47,    5,   47,   47,   47,   47,
-       47,   47,   46,   46,   46,   49,   49,   50,   46,   46,
-       49,   49,   50,   46,   46,   46,   46,   49,   46,   46,
-       46,   49,   46,   46,   46,   49,   46,   46,   46,   46,
-       51,   51,   52,   52,   46,    0,   46,   46,   46,   46,
-       46,   46
-    } ;
-
-static const flex_int16_t yy_nxt[92] =
-    {   0,
-       14,   14,   14,   14,   45,   14,   41,   41,   17,   14,
-       14,   14,   14,   25,   14,   40,   26,   17,   18,   18,
-       25,   43,   43,   26,   40,   15,   39,   38,   37,   19,
-       14,   14,   14,   14,   14,   16,   16,   16,   16,   16,
-       21,   36,   21,   23,   35,   34,   23,   42,   42,   42,
-       44,   33,   44,   32,   31,   30,   29,   24,   28,   27,
-       24,   22,   20,   46,   15,   15,   15,   15,   15,   15,
-       15,   15,   13,   46,   46,   46,   46,   46,   46,   46,
-       46,   46,   46,   46,   46,   46,   46,   46,   46,   46,
-       46
+        0,    1,   15,   29,   42,    0,   11,   13,   14,   25,
+       27,   28,  134,  136,  115,  107,    0,  109,  103,  104,
+       95,   31,   94,   96,   94,    0,   94,   92,   85,   32,
+       81,   85,   88,   78,   78,   77,   73,   75,   79,    0,
+       67,   72,    0,   68,   71,   66,   69,   67,    0,   72,
+       63,    0,  136,   65,    0,   64,   57,   51,   58,    0,
+        2,   57,   55,    4,   55,    9,   54,   44,    0,   52,
+       57,   45,    0,   69,   32,   36,   75,   10,  136,   90,
+      136,   59,  136,  106,  111,  114,  118,  121,  124,  127,
+      130
 
     } ;
 
-static const flex_int16_t yy_chk[92] =
+static const flex_int16_t yy_def[92] =
     {   0,
-        3,    3,    3,    3,   44,    3,   40,   40,    3,    4,
-        4,    4,    4,   19,    4,   39,   19,    4,    5,    5,
-       24,   42,   42,   24,   38,    5,   37,   34,   33,    5,
-       47,   47,   47,   47,   47,   48,   48,   48,   48,   48,
-       49,   32,   49,   50,   31,   30,   50,   51,   51,   51,
-       52,   29,   52,   28,   27,   26,   25,   23,   22,   20,
-       18,   17,   15,   13,   12,   11,   10,    9,    8,    7,
-        2,    1,   46,   46,   46,   46,   46,   46,   46,   46,
-       46,   46,   46,   46,   46,   46,   46,   46,   46,   46,
-       46
+       84,   84,   85,   85,   84,    5,   84,   84,   84,   84,
+       84,   84,   83,   83,   83,   83,   86,   86,   86,   87,
+       83,   83,   83,   83,   83,   86,   86,   86,   87,   83,
+       83,   83,   83,   83,   83,   83,   86,   86,   83,   88,
+       83,   83,   89,   83,   83,   86,   86,   83,   88,   83,
+       83,   89,   83,   83,   86,   86,   83,   83,   83,   83,
+       86,   83,   83,   83,   83,   83,   90,   83,   90,   90,
+       90,   83,   91,   90,   83,   91,   90,   83,   83,   90,
+       83,   90,    0,   83,   83,   83,   83,   83,   83,   83,
+       83
 
+    } ;
+
+static const flex_int16_t yy_nxt[156] =
+    {   0,
+       83,   65,   65,   65,   65,   67,   67,   83,   15,   15,
+       69,   69,   83,   16,   16,   14,   14,   14,   14,   15,
+       14,   15,   15,   18,   16,   81,   16,   16,   19,   14,
+       14,   14,   14,   15,   14,   15,   15,   18,   16,   79,
+       16,   16,   19,   20,   20,   32,   32,   78,   33,   39,
+       15,   75,   21,   73,   73,   22,   72,   23,   73,   73,
+       73,   73,   71,   68,   66,   66,   64,   63,   62,   74,
+       73,   73,   61,   60,   59,   77,   73,   73,   58,   57,
+       56,   55,   54,   53,   51,   50,   48,   47,   46,   45,
+       80,   73,   73,   44,   43,   42,   41,   40,   30,   38,
+
+       37,   36,   35,   34,   31,   82,   14,   14,   14,   14,
+       14,   17,   17,   17,   17,   17,   26,   30,   26,   29,
+       28,   27,   29,   49,   25,   49,   52,   24,   52,   70,
+       70,   70,   76,   83,   76,   13,   83,   83,   83,   83,
+       83,   83,   83,   83,   83,   83,   83,   83,   83,   83,
+       83,   83,   83,   83,   83
+    } ;
+
+static const flex_int16_t yy_chk[156] =
+    {   0,
+        0,   60,   60,   61,   61,   64,   64,    0,    1,    2,
+       66,   66,    0,    1,    2,    3,    3,    3,    3,    7,
+        3,    8,    9,    3,    7,   78,    8,    9,    3,    4,
+        4,    4,    4,   10,    4,   11,   12,    4,   10,   76,
+       11,   12,    4,    5,    5,   22,   30,   75,   22,   30,
+        5,   72,    5,   70,   70,    5,   68,    5,   71,   71,
+       82,   82,   67,   65,   63,   62,   59,   58,   57,   71,
+       74,   74,   56,   54,   51,   74,   77,   77,   50,   48,
+       47,   46,   45,   44,   42,   41,   39,   38,   37,   36,
+       77,   80,   80,   35,   34,   33,   32,   31,   29,   28,
+
+       27,   25,   24,   23,   21,   80,   84,   84,   84,   84,
+       84,   85,   85,   85,   85,   85,   86,   20,   86,   87,
+       19,   18,   87,   88,   16,   88,   89,   15,   89,   90,
+       90,   90,   91,   13,   91,   83,   83,   83,   83,   83,
+       83,   83,   83,   83,   83,   83,   83,   83,   83,   83,
+       83,   83,   83,   83,   83
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -477,6 +503,7 @@ char *yytext;
     #include <stdlib.h>
     #include <string.h>
     #include <stdbool.h>
+    #include <ctype.h>
 
     typedef struct attr {
         char* name;
@@ -491,6 +518,7 @@ char *yytext;
     }class;
 
     int class_num = 0;
+    int pubic_class_num = 0;
     int obj_num[100] = {0};
     class *classes;
 
@@ -511,9 +539,34 @@ char *yytext;
 
         return lastWord;
     }
-#line 515 "lex.yy.c"
 
-#line 517 "lex.yy.c"
+    void extractAttrFromMethod(char *method) {
+        strcpy(method, method + 3);
+        method[0] = tolower(method[0]);
+    }
+
+    void addSetMethodToAttr(char *method) {
+        for(int i = 0; i < class_num; i++) {
+            for(int j = 0; j < classes[i].attr_num; j++) {
+                if(strcmp(classes[i].attributes[j].name, method) == 0) {
+                    classes[i].attributes[j].GetMethod = true;
+                }
+            }
+        }
+    }
+
+    void addGetMethodToAttr(char *method) {
+        for(int i = 0; i < class_num; i++) {
+            for(int j = 0; j < classes[i].attr_num; j++) {
+                if(strcmp(classes[i].attributes[j].name, method) == 0) {
+                    classes[i].attributes[j].SetMethod = true;
+                }
+            }
+        }
+    }
+#line 568 "lex.yy.c"
+
+#line 570 "lex.yy.c"
 
 #define INITIAL 0
 #define CLASS_STATE 1
@@ -735,9 +788,9 @@ YY_DECL
 		}
 
 	{
-#line 46 "main.l"
+#line 73 "main.l"
 
-#line 741 "lex.yy.c"
+#line 794 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -764,13 +817,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 47 )
+				if ( yy_current_state >= 84 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 73 );
+		while ( yy_base[yy_current_state] != 136 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -795,8 +848,33 @@ do_action:	/* This label is used only to access EOF actions. */
 			goto yy_find_action;
 
 case 1:
+/* rule 1 can match eol */
 YY_RULE_SETUP
-#line 47 "main.l"
+#line 74 "main.l"
+{  
+                            BEGIN(CLASS_STATE); 
+                            class_num++;
+                            pubic_class_num++;
+
+                            if(pubic_class_num > 1) {
+                                printf("Eroare: mai multe clase publice\n");
+                                exit(1);
+                            }
+
+                            if(class_num == 1)
+                                classes = (class *)malloc(sizeof(class));
+                            else 
+                                classes = (class *)realloc(classes, class_num * sizeof(class));
+
+                            if (classes == NULL) {
+                                fprintf(stderr, "Memory allocation failed\n");
+                                exit(1);
+                            }
+                        }
+	YY_BREAK
+case 2:
+YY_RULE_SETUP
+#line 95 "main.l"
 {  
                     BEGIN(CLASS_STATE); 
                     class_num++;
@@ -807,13 +885,13 @@ YY_RULE_SETUP
 
                     if (classes == NULL) {
                         fprintf(stderr, "Memory allocation failed\n");
-                        return 1;
+                        exit(1);
                     }
                  }
 	YY_BREAK
-case 2:
+case 3:
 YY_RULE_SETUP
-#line 61 "main.l"
+#line 109 "main.l"
 {  
                             classes[class_num - 1].name = (char *)malloc((yyleng + 1) * sizeof(char));
                             strcpy(classes[class_num - 1].name, yytext);
@@ -821,10 +899,10 @@ YY_RULE_SETUP
                             BEGIN(CLASS_ATTR); 
                          }
 	YY_BREAK
-case 3:
-/* rule 3 can match eol */
+case 4:
+/* rule 4 can match eol */
 YY_RULE_SETUP
-#line 68 "main.l"
+#line 116 "main.l"
 {
                     // This part recognizes the specified line pattern
                     char *lastWord = getLastWord(yytext);
@@ -840,22 +918,42 @@ YY_RULE_SETUP
                 
                     current_class->attributes[current_class->attr_num - 1].name = (char *)malloc((strlen(lastWord) + 1) * sizeof(char));
                     strcpy(current_class->attributes[current_class->attr_num - 1].name, lastWord);
-                    //classes[class_num - 1].attributes[classes[class_num - 1].attr_num - 1].SetMethod = false;
-                    //classes[class_num - 1].attributes[classes[class_num - 1].attr_num - 1].SetMethod = false;
+                    current_class->attributes[current_class->attr_num - 1].SetMethod = false;
+                    current_class->attributes[current_class->attr_num - 1].SetMethod = false;
                 }
-	YY_BREAK
-case 4:
-/* rule 4 can match eol */
-YY_RULE_SETUP
-#line 87 "main.l"
-{ }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 88 "main.l"
+#line 135 "main.l"
+{
+                                printf("%s\n", yytext);
+                                extractAttrFromMethod(yytext);
+                                printf("%s\n", yytext);
+                                addSetMethodToAttr(yytext);
+                            }
+	YY_BREAK
+case 6:
+YY_RULE_SETUP
+#line 142 "main.l"
+{
+                                printf("%s\n", yytext);
+                                extractAttrFromMethod(yytext);
+                                printf("%s\n", yytext);
+                                addGetMethodToAttr(yytext);
+                            }
+	YY_BREAK
+case 7:
+/* rule 7 can match eol */
+YY_RULE_SETUP
+#line 148 "main.l"
+{ }
+	YY_BREAK
+case 8:
+YY_RULE_SETUP
+#line 149 "main.l"
 ECHO;
 	YY_BREAK
-#line 859 "lex.yy.c"
+#line 957 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(CLASS_STATE):
 case YY_STATE_EOF(CLASS_ATTR):
@@ -1157,7 +1255,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 47 )
+			if ( yy_current_state >= 84 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1185,11 +1283,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 47 )
+		if ( yy_current_state >= 84 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 46);
+	yy_is_jam = (yy_current_state == 83);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1865,7 +1963,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 88 "main.l"
+#line 149 "main.l"
 
 
 int yywrap() {
@@ -1891,7 +1989,8 @@ int main(int argc, char **argv) {
     for (int i = 0; i < class_num; i++) {
         printf("%s : %d\n", classes[i].name, classes[i].attr_num);
             for (int j = 0; j < classes[i].attr_num; j++) {
-                printf("%s ", classes[i].attributes[j].name);
+                printf("%s: ", classes[i].attributes[j].name);
+                printf("set: %d get: %d\n", classes[i].attributes[j].SetMethod, classes[i].attributes[j].GetMethod);
             }
         printf("\n");
     }
@@ -1909,7 +2008,34 @@ int main(int argc, char **argv) {
     }
 
     for (int i = 0; i < class_num; i++) {
-        printf("%s: \n", classes[i].name);
+        if(classes[i].attr_num == 0) {
+            continue;
+        }
+
+        printf("%s: ", classes[i].name);
+
+        bool hasSet = true;
+        bool hasGet = true;
+        for (int j = 0; j < classes[i].attr_num; j++) {
+            if (classes[i].attributes[j].SetMethod == false) {
+                hasSet = false;
+            }
+            if (classes[i].attributes[j].GetMethod == false) {
+                hasGet = false;
+            }
+        }
+
+        if (hasSet == true && hasGet == true) {
+            printf("Metodele “get” si “set” sunt implementate\n");
+        }
+
+        if (hasGet == false) {
+            printf("Metoda “get” nu este implementata pentru toate atributele\n");
+        }
+        
+        if (hasSet == false) {
+            printf("Metoda “set” nu este implementata pentru toate atributele\n");
+        }
     }
 
     // Free allocated memory
