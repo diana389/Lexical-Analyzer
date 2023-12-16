@@ -68,13 +68,18 @@
     }
 
     void addObject(char *object) {
-        printf("%s\n", object);
         for(int i = 0; i < class_num; i++) {
             if(strcmp(classes[i].name, object) == 0) {
-                printf("Obiectul %s este de tipul %s\n", object, classes[i].name);
                 classes[i].obj_num++;
             }
         }
+    }
+
+    int extractArraySize(char *object) {
+        char *token = strtok(object, "[");
+        token = strtok(NULL, "[");
+        token = strtok(token, "]");
+        return atoi(token);
     }
 %}
 
@@ -163,13 +168,40 @@ class   {
                             }
 
 "public static void main(String[] args)"    {
-                                                printf("%s\n", yytext);
+                                                //printf("%s\n", yytext);
                                                 BEGIN(MAIN_STATE);
                                             }
 
+<MAIN_STATE>new[[:space:]]+[a-zA-Z]+\[[0-9]+\]    {
+                    yytext = yytext + 4;
+                    //printf("%s\n", yytext);
+
+                    int arraySize = extractArraySize(yytext);
+                    //printf("%d\n", arraySize);
+                    
+                    for(int i = 0; i < arraySize; i++) {
+                        total_obj_num++;
+
+                        if(total_obj_num == 1)
+                            objects = (char **)malloc(sizeof(char *));
+                        else 
+                            objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
+
+                        if (objects == NULL) {
+                            fprintf(stderr, "Memory allocation failed\n");
+                            exit(1);
+                        }
+
+                        objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
+                        strcpy(objects[total_obj_num - 1], yytext);    
+                    }  
+                }
+
+<MAIN_STATE>[a-zA-Z]+\[.*\][[:space:]]+=[[:space:]]+new[[:space:]]+[a-zA-Z]+ {}
+
 <MAIN_STATE>new[[:space:]]+[a-zA-Z]+    {
                                             yytext = yytext + 4;
-                                            printf("%s\n", yytext);
+                                            //printf("%s\n", yytext);
                                             //addObject(yytext);
                                             total_obj_num++;
 
@@ -210,16 +242,16 @@ int main(int argc, char **argv) {
 
     yylex(); // Start lexical analysis
 
-    printf("-------------------------------\n");
+    // printf("-------------------------------\n");
 
-    for (int i = 0; i < class_num; i++) {
-        printf("%s : %d\n", classes[i].name, classes[i].attr_num);
-            for (int j = 0; j < classes[i].attr_num; j++) {
-                printf("%s: ", classes[i].attributes[j].name);
-                printf("set: %d get: %d\n", classes[i].attributes[j].SetMethod, classes[i].attributes[j].GetMethod);
-            }
-        printf("\n");
-    }
+    // for (int i = 0; i < class_num; i++) {
+    //     printf("%s : %d\n", classes[i].name, classes[i].attr_num);
+    //         for (int j = 0; j < classes[i].attr_num; j++) {
+    //             printf("%s: ", classes[i].attributes[j].name);
+    //             printf("set: %d get: %d\n", classes[i].attributes[j].SetMethod, classes[i].attributes[j].GetMethod);
+    //         }
+    //     printf("\n");
+    // }
 
     printf("Clase %d: ", class_num);
 
@@ -238,10 +270,10 @@ int main(int argc, char **argv) {
     }
 
     for (int i = 0; i < class_num; i++) {
-        printf("%s: ", classes[i].name);
+        printf("%s:\n", classes[i].name);
 
         if(classes[i].attr_num == 0) {
-            printf("Nu exista atribute\n");
+            printf("\tNu exista atribute\n");
             continue;
         }
 
@@ -257,15 +289,15 @@ int main(int argc, char **argv) {
         }
 
         if (hasSet == true && hasGet == true) {
-            printf("Metodele “get” si “set” sunt implementate\n");
+            printf("\tMetodele “get” si “set” sunt implementate\n");
         }
 
         if (hasGet == false) {
-            printf("Metoda “get” nu este implementata pentru toate atributele\n");
+            printf("\tMetoda “get” nu este implementata pentru toate atributele\n");
         }
         
         if (hasSet == false) {
-            printf("Metoda “set” nu este implementata pentru toate atributele\n");
+            printf("\tMetoda “set” nu este implementata pentru toate atributele\n");
         }
     }
 
