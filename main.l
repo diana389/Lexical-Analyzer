@@ -15,12 +15,14 @@
         char* name;
         attr* attributes;
         int attr_num;
+        int obj_num;
     }class;
 
     int class_num = 0;
     int pubic_class_num = 0;
-    int obj_num[100] = {0};
     class *classes;
+    char **objects;
+    int total_obj_num = 0;
 
     char* getLastWord(char *sentence) {
         // Create a copy of the sentence as strtok modifies the input
@@ -64,13 +66,24 @@
             }
         }
     }
+
+    void addObject(char *object) {
+        printf("%s\n", object);
+        for(int i = 0; i < class_num; i++) {
+            if(strcmp(classes[i].name, object) == 0) {
+                printf("Obiectul %s este de tipul %s\n", object, classes[i].name);
+                classes[i].obj_num++;
+            }
+        }
+    }
 %}
 
-%s CLASS_STATE CLASS_ATTR CLASS_ATTR2 CLASS_ATTR3 NEW_OBJ_STATE
-p private|public
-alpha [a-zA-Z]+
+%s CLASS_STATE CLASS_ATTR MAIN_STATE
 
 %%
+
+[[:space:]]*\/\/[[:space:]]*.*$ {}
+
 public[[:space:]]class   {  
                             BEGIN(CLASS_STATE); 
                             class_num++;
@@ -109,7 +122,10 @@ class   {
 <CLASS_STATE>[a-zA-Z]+   {  
                             classes[class_num - 1].name = (char *)malloc((yyleng + 1) * sizeof(char));
                             strcpy(classes[class_num - 1].name, yytext);
+
                             classes[class_num - 1].attr_num = 0;
+                            classes[class_num - 1].obj_num = 0;
+
                             BEGIN(CLASS_ATTR); 
                          }
 
@@ -133,18 +149,44 @@ class   {
                 }
 
 <CLASS_ATTR>set[a-zA-Z]+    {
-                                printf("%s\n", yytext);
+                                //printf("%s\n", yytext);
                                 extractAttrFromMethod(yytext);
-                                printf("%s\n", yytext);
+                                //printf("%s\n", yytext);
                                 addSetMethodToAttr(yytext);
                             }
 
 <CLASS_ATTR>get[a-zA-Z]+    {
-                                printf("%s\n", yytext);
+                                //printf("%s\n", yytext);
                                 extractAttrFromMethod(yytext);
-                                printf("%s\n", yytext);
+                                //printf("%s\n", yytext);
                                 addGetMethodToAttr(yytext);
                             }
+
+"public static void main(String[] args)"    {
+                                                printf("%s\n", yytext);
+                                                BEGIN(MAIN_STATE);
+                                            }
+
+<MAIN_STATE>new[[:space:]]+[a-zA-Z]+    {
+                                            yytext = yytext + 4;
+                                            printf("%s\n", yytext);
+                                            //addObject(yytext);
+                                            total_obj_num++;
+
+                                            if(total_obj_num == 1)
+                                                objects = (char **)malloc(sizeof(char *));
+                                            else 
+                                                objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
+
+                                            if (objects == NULL) {
+                                                fprintf(stderr, "Memory allocation failed\n");
+                                                exit(1);
+                                            }
+
+                                            objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
+                                            strcpy(objects[total_obj_num - 1], yytext);    
+                                        }
+
 .|\n    { }
 %%
 
@@ -168,6 +210,8 @@ int main(int argc, char **argv) {
 
     yylex(); // Start lexical analysis
 
+    printf("-------------------------------\n");
+
     for (int i = 0; i < class_num; i++) {
         printf("%s : %d\n", classes[i].name, classes[i].attr_num);
             for (int j = 0; j < classes[i].attr_num; j++) {
@@ -179,22 +223,27 @@ int main(int argc, char **argv) {
 
     printf("Clase %d: ", class_num);
 
-    for (int i = 0; i < class_num; i++) {
-        printf("%s ", classes[i].name);
+    for (int i = 0; i < class_num - 1; i++) {
+        printf("%s, ", classes[i].name);
     }
 
-    printf("\n");
+    printf("%s\n", classes[class_num - 1].name);
 
-    for (int i = 0; i < class_num; i++) {
-        printf("Obiecte %s: %d\n", classes[i].name, obj_num[i]);
+    for (int i = 0; i < total_obj_num; i++) {
+        addObject(objects[i]);
     }
 
     for (int i = 0; i < class_num; i++) {
+        printf("Obiecte %s: %d\n", classes[i].name, classes[i].obj_num);
+    }
+
+    for (int i = 0; i < class_num; i++) {
+        printf("%s: ", classes[i].name);
+
         if(classes[i].attr_num == 0) {
+            printf("Nu exista atribute\n");
             continue;
         }
-
-        printf("%s: ", classes[i].name);
 
         bool hasSet = true;
         bool hasGet = true;
