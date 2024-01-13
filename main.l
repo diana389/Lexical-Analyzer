@@ -52,13 +52,6 @@
             }
         }
     }
-
-    int extractArraySize(char *object) {
-        char *token = strtok(object, "[");
-        token = strtok(NULL, "[");
-        token = strtok(token, "]");
-        return atoi(token);
-    }
 %}
 
 %s CLASS_STATE CLASS_ATTR MAIN_STATE ATTR_NAME_STATE SET_STATE GET_STATE NEW_STATE PARANTHESIS SIZE_STATE
@@ -92,6 +85,7 @@ public[[:space:]]class   {
 }
 
 class   {  
+    
     BEGIN(CLASS_STATE); 
 
     class_num++; // increase the number of classes
@@ -109,6 +103,9 @@ class   {
 }
 
 <CLASS_STATE>[a-zA-Z]+   {  
+
+    BEGIN(CLASS_ATTR); 
+
     // copy the class name
     classes[class_num - 1].name = (char *)malloc((yyleng + 1) * sizeof(char));
     strcpy(classes[class_num - 1].name, yytext);
@@ -116,8 +113,6 @@ class   {
     // initialize the attributes and objects number
     classes[class_num - 1].attr_num = 0;
     classes[class_num - 1].obj_num = 0;
-
-    BEGIN(CLASS_ATTR); 
 }
 
 <CLASS_ATTR>[[:space:]]*(public|private)[[:space:]][a-zA-Z\[\]]+[[:space:]]/[a-zA-Z]+; {
@@ -126,7 +121,8 @@ class   {
 }
 
 <ATTR_NAME_STATE>[a-zA-Z]+    {
-    // printf("ATTR: %s\n", yytext);
+
+    BEGIN(CLASS_ATTR);
 
     class *current_class = &classes[class_num - 1]; // current class is the last class added to the array
     current_class->attr_num++; // increase the number of attributes
@@ -149,8 +145,6 @@ class   {
     // initialize the GetMethod and SetMethod flags
     current_class->attributes[current_class->attr_num - 1].SetMethod = false;
     current_class->attributes[current_class->attr_num - 1].SetMethod = false;
-
-    BEGIN(CLASS_ATTR);
 }
 
 <CLASS_ATTR>set/[a-zA-Z]+    {
@@ -159,7 +153,7 @@ class   {
 }
 
 <SET_STATE>[a-zA-Z]+    {
-    // printf("%s.\n", yytext);
+
     yytext[0] = tolower(yytext[0]);
     addSetMethodToAttr(yytext);
 
@@ -172,7 +166,7 @@ class   {
 }
 
 <GET_STATE>[a-zA-Z]+    {
-    // printf("%s.\n", yytext);
+
     yytext[0] = tolower(yytext[0]);
     addGetMethodToAttr(yytext);
 
@@ -180,7 +174,7 @@ class   {
 }
 
 "public static void main(String[] args)"    {
-    //printf("%s\n", yytext);
+
     BEGIN(MAIN_STATE);
 }
 
@@ -191,16 +185,18 @@ class   {
 
 <NEW_STATE>[a-zA-Z]+/\[[0-9]+\]    {
 
-    strcpy(obj_name, yytext);
-
     BEGIN(PARANTHESIS);
+    strcpy(obj_name, yytext);
 }
 
 <PARANTHESIS>\[/[0-9]+\]    {
+
     BEGIN(SIZE_STATE);
 }
 
 <SIZE_STATE>[0-9]+/\]    {
+
+    BEGIN(MAIN_STATE);
     int arraySize = atoi(yytext);
     
     for(int i = 0; i < arraySize; i++) {
@@ -221,8 +217,6 @@ class   {
         objects[total_obj_num - 1] = (char *)malloc((strlen(obj_name) + 1) * sizeof(char));
         strcpy(objects[total_obj_num - 1], obj_name);    
     }  
-
-    BEGIN(MAIN_STATE);
 }
 
 <MAIN_STATE>[a-zA-Z]+\[.*\][[:space:]]+=[[:space:]]+new[[:space:]]+[a-zA-Z]+ {}
@@ -233,7 +227,9 @@ class   {
 }
 
 <NEW_STATE>[a-zA-Z]+    {
-    //printf("%s\n", yytext);
+
+    BEGIN(MAIN_STATE);
+    
     total_obj_num++; // increase the number of objects
 
     // allocate memory for the objects array
@@ -250,8 +246,6 @@ class   {
     // allocate memory for the object name and copy it
     objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
     strcpy(objects[total_obj_num - 1], yytext);    
-
-    BEGIN(MAIN_STATE);
 }
 
 .|\n    { }
@@ -344,8 +338,17 @@ int main(int argc, char **argv) {
     // free allocated memory
     for (int i = 0; i < class_num; i++) {
         free(classes[i].name);
+        for (int j = 0; j < classes[i].attr_num; j++) {
+            free(classes[i].attributes[j].name);
+        }
+        free(classes[i].attributes);
     }
     free(classes);
+
+    for (int i = 0; i < total_obj_num; i++) {
+        free(objects[i]);
+    }
+    free(objects);
 
     fclose(inputFile);
     return 0;

@@ -758,16 +758,9 @@ char *yytext;
             }
         }
     }
+#line 762 "lex.yy.c"
 
-    int extractArraySize(char *object) {
-        char *token = strtok(object, "[");
-        token = strtok(NULL, "[");
-        token = strtok(token, "]");
-        return atoi(token);
-    }
-#line 769 "lex.yy.c"
-
-#line 771 "lex.yy.c"
+#line 764 "lex.yy.c"
 
 #define INITIAL 0
 #define CLASS_STATE 1
@@ -999,10 +992,10 @@ YY_DECL
 		}
 
 	{
-#line 66 "main.l"
+#line 59 "main.l"
 
 
-#line 1006 "lex.yy.c"
+#line 999 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1089,13 +1082,13 @@ YY_LINENO_REWIND_TO(yy_cp - 1);
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 68 "main.l"
+#line 61 "main.l"
 {}
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 70 "main.l"
+#line 63 "main.l"
 {  
     BEGIN(CLASS_STATE); 
 
@@ -1122,8 +1115,9 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 94 "main.l"
+#line 87 "main.l"
 {  
+    
     BEGIN(CLASS_STATE); 
 
     class_num++; // increase the number of classes
@@ -1142,8 +1136,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 111 "main.l"
+#line 105 "main.l"
 {  
+
+    BEGIN(CLASS_ATTR); 
+
     // copy the class name
     classes[class_num - 1].name = (char *)malloc((yyleng + 1) * sizeof(char));
     strcpy(classes[class_num - 1].name, yytext);
@@ -1151,14 +1148,12 @@ YY_RULE_SETUP
     // initialize the attributes and objects number
     classes[class_num - 1].attr_num = 0;
     classes[class_num - 1].obj_num = 0;
-
-    BEGIN(CLASS_ATTR); 
 }
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 123 "main.l"
+#line 118 "main.l"
 {
 
     BEGIN(ATTR_NAME_STATE);
@@ -1166,9 +1161,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 128 "main.l"
+#line 123 "main.l"
 {
-    // printf("ATTR: %s\n", yytext);
+
+    BEGIN(CLASS_ATTR);
 
     class *current_class = &classes[class_num - 1]; // current class is the last class added to the array
     current_class->attr_num++; // increase the number of attributes
@@ -1191,8 +1187,6 @@ YY_RULE_SETUP
     // initialize the GetMethod and SetMethod flags
     current_class->attributes[current_class->attr_num - 1].SetMethod = false;
     current_class->attributes[current_class->attr_num - 1].SetMethod = false;
-
-    BEGIN(CLASS_ATTR);
 }
 	YY_BREAK
 case 7:
@@ -1200,7 +1194,7 @@ case 7:
 (yy_c_buf_p) = yy_cp = yy_bp + 3;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 156 "main.l"
+#line 150 "main.l"
 {
 
     BEGIN(SET_STATE);
@@ -1208,9 +1202,9 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 161 "main.l"
+#line 155 "main.l"
 {
-    // printf("%s.\n", yytext);
+
     yytext[0] = tolower(yytext[0]);
     addSetMethodToAttr(yytext);
 
@@ -1222,7 +1216,7 @@ case 9:
 (yy_c_buf_p) = yy_cp = yy_bp + 3;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 169 "main.l"
+#line 163 "main.l"
 {
 
     BEGIN(GET_STATE);
@@ -1230,9 +1224,9 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 174 "main.l"
+#line 168 "main.l"
 {
-    // printf("%s.\n", yytext);
+
     yytext[0] = tolower(yytext[0]);
     addGetMethodToAttr(yytext);
 
@@ -1241,16 +1235,16 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 182 "main.l"
+#line 176 "main.l"
 {
-    //printf("%s\n", yytext);
+
     BEGIN(MAIN_STATE);
 }
 	YY_BREAK
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 187 "main.l"
+#line 181 "main.l"
 {
 
     BEGIN(NEW_STATE);
@@ -1258,12 +1252,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 192 "main.l"
+#line 186 "main.l"
 {
 
-    strcpy(obj_name, yytext);
-
     BEGIN(PARANTHESIS);
+    strcpy(obj_name, yytext);
 }
 	YY_BREAK
 case 14:
@@ -1271,8 +1264,9 @@ case 14:
 (yy_c_buf_p) = yy_cp = yy_bp + 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 199 "main.l"
+#line 192 "main.l"
 {
+
     BEGIN(SIZE_STATE);
 }
 	YY_BREAK
@@ -1281,8 +1275,10 @@ case 15:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 203 "main.l"
+#line 197 "main.l"
 {
+
+    BEGIN(MAIN_STATE);
     int arraySize = atoi(yytext);
     
     for(int i = 0; i < arraySize; i++) {
@@ -1303,20 +1299,18 @@ YY_RULE_SETUP
         objects[total_obj_num - 1] = (char *)malloc((strlen(obj_name) + 1) * sizeof(char));
         strcpy(objects[total_obj_num - 1], obj_name);    
     }  
-
-    BEGIN(MAIN_STATE);
 }
 	YY_BREAK
 case 16:
 /* rule 16 can match eol */
 YY_RULE_SETUP
-#line 228 "main.l"
+#line 222 "main.l"
 {}
 	YY_BREAK
 case 17:
 /* rule 17 can match eol */
 YY_RULE_SETUP
-#line 230 "main.l"
+#line 224 "main.l"
 {  
 
     BEGIN(NEW_STATE);
@@ -1324,9 +1318,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 235 "main.l"
+#line 229 "main.l"
 {
-    //printf("%s\n", yytext);
+
+    BEGIN(MAIN_STATE);
+    
     total_obj_num++; // increase the number of objects
 
     // allocate memory for the objects array
@@ -1343,22 +1339,20 @@ YY_RULE_SETUP
     // allocate memory for the object name and copy it
     objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
     strcpy(objects[total_obj_num - 1], yytext);    
-
-    BEGIN(MAIN_STATE);
 }
 	YY_BREAK
 case 19:
 /* rule 19 can match eol */
 YY_RULE_SETUP
-#line 257 "main.l"
+#line 251 "main.l"
 { }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 258 "main.l"
+#line 252 "main.l"
 ECHO;
 	YY_BREAK
-#line 1362 "lex.yy.c"
+#line 1356 "lex.yy.c"
 			case YY_STATE_EOF(INITIAL):
 			case YY_STATE_EOF(CLASS_STATE):
 			case YY_STATE_EOF(CLASS_ATTR):
@@ -2345,7 +2339,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 258 "main.l"
+#line 252 "main.l"
 
 
 int yywrap() {
@@ -2435,8 +2429,17 @@ int main(int argc, char **argv) {
     // free allocated memory
     for (int i = 0; i < class_num; i++) {
         free(classes[i].name);
+        for (int j = 0; j < classes[i].attr_num; j++) {
+            free(classes[i].attributes[j].name);
+        }
+        free(classes[i].attributes);
     }
     free(classes);
+
+    for (int i = 0; i < total_obj_num; i++) {
+        free(objects[i]);
+    }
+    free(objects);
 
     fclose(inputFile);
     return 0;
