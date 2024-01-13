@@ -1171,41 +1171,13 @@ case 5:
 YY_RULE_SETUP
 #line 145 "main.l"
 {
-    // printf("OBJ: %s\n", yytext);
-
-
-    // // This part recognizes the specified line pattern
-    // char *lastWord = getLastWord(yytext);
-    // printf("lastWord: %s\n", lastWord);
-
-    // class *current_class = &classes[class_num - 1]; // current class is the last class added to the array
-    // current_class->attr_num++; // increase the number of attributes
-
-    // // allocate memory for the attributes array
-    // if(current_class->attr_num == 1)
-    //     current_class->attributes = (attr *)malloc(sizeof(attr));
-    // else 
-    //     current_class->attributes = (attr *)realloc(current_class->attributes, current_class->attr_num * sizeof(attr));
-
-    // if (current_class->attributes == NULL) {
-    //     fprintf(stderr, "Memory allocation failed\n");
-    //     exit(1);
-    // }
-
-    // // copy the attribute name
-    // current_class->attributes[current_class->attr_num - 1].name = (char *)malloc((strlen(lastWord) + 1) * sizeof(char));
-    // strcpy(current_class->attributes[current_class->attr_num - 1].name, lastWord);
-
-    // // initialize the GetMethod and SetMethod flags
-    // current_class->attributes[current_class->attr_num - 1].SetMethod = false;
-    // current_class->attributes[current_class->attr_num - 1].SetMethod = false;
 
     BEGIN(ATTR_NAME_STATE);
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 178 "main.l"
+#line 150 "main.l"
 {
     // printf("ATTR: %s\n", yytext);
 
@@ -1239,19 +1211,15 @@ case 7:
 (yy_c_buf_p) = yy_cp = yy_bp + 3;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 206 "main.l"
+#line 178 "main.l"
 {
-    printf("%s\n", yytext);
-    // extractAttrFromMethod(yytext);
-    // printf("%s\n", yytext);
-    // addSetMethodToAttr(yytext);
 
     BEGIN(SET_STATE);
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 215 "main.l"
+#line 183 "main.l"
 {
     // printf("%s.\n", yytext);
     yytext[0] = tolower(yytext[0]);
@@ -1265,19 +1233,15 @@ case 9:
 (yy_c_buf_p) = yy_cp = yy_bp + 3;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 223 "main.l"
+#line 191 "main.l"
 {
-    // printf("%s\n", yytext);
-    // extractAttrFromMethod(yytext);
-    // printf("%s\n", yytext);
-    // addGetMethodToAttr(yytext);
 
     BEGIN(GET_STATE);
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 232 "main.l"
+#line 196 "main.l"
 {
     // printf("%s.\n", yytext);
     yytext[0] = tolower(yytext[0]);
@@ -1288,7 +1252,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 240 "main.l"
+#line 204 "main.l"
 {
     //printf("%s\n", yytext);
     BEGIN(MAIN_STATE);
@@ -1297,41 +1261,17 @@ YY_RULE_SETUP
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 245 "main.l"
+#line 209 "main.l"
 {
-    // yytext = yytext + 4;
-    printf("%s\n", yytext);
-
-    // int arraySize = extractArraySize(yytext);
-    // //printf("%d\n", arraySize);
-    
-    // for(int i = 0; i < arraySize; i++) {
-    //     total_obj_num++; // increase the number of objects
-
-    //     // allocate memory for the objects array
-    //     if(total_obj_num == 1)
-    //         objects = (char **)malloc(sizeof(char *));
-    //     else 
-    //         objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
-
-    //     if (objects == NULL) {
-    //         fprintf(stderr, "Memory allocation failed\n");
-    //         exit(1);
-    //     }
-
-    //     // allocate memory for the object name and copy it
-    //     objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
-    //     strcpy(objects[total_obj_num - 1], yytext);    
-    // }  
 
     BEGIN(NEW_STATE);
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 274 "main.l"
+#line 214 "main.l"
 {
-    printf("%s\n", yytext);
+    // printf("%s\n", yytext);
 
     int arraySize = extractArraySize(yytext);
     //printf("%d\n", arraySize);
@@ -1361,43 +1301,23 @@ YY_RULE_SETUP
 case 14:
 /* rule 14 can match eol */
 YY_RULE_SETUP
-#line 302 "main.l"
+#line 242 "main.l"
 {}
 	YY_BREAK
 case 15:
 /* rule 15 can match eol */
 YY_RULE_SETUP
-#line 304 "main.l"
-{
-    // yytext = yytext + 4;
-    printf("%s\n", yytext);
-    // //addObject(yytext);
-    // total_obj_num++; // increase the number of objects
-
-    // // allocate memory for the objects array
-    // if(total_obj_num == 1)
-    //     objects = (char **)malloc(sizeof(char *));
-    // else 
-    //     objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
-
-    // if (objects == NULL) {
-    //     fprintf(stderr, "Memory allocation failed\n");
-    //     exit(1);
-    // }
-
-    // // allocate memory for the object name and copy it
-    // objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
-    // strcpy(objects[total_obj_num - 1], yytext);    
+#line 244 "main.l"
+{  
 
     BEGIN(NEW_STATE);
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 328 "main.l"
+#line 249 "main.l"
 {
     //printf("%s\n", yytext);
-    //addObject(yytext);
     total_obj_num++; // increase the number of objects
 
     // allocate memory for the objects array
@@ -1421,15 +1341,15 @@ YY_RULE_SETUP
 case 17:
 /* rule 17 can match eol */
 YY_RULE_SETUP
-#line 351 "main.l"
+#line 271 "main.l"
 { }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 352 "main.l"
+#line 272 "main.l"
 ECHO;
 	YY_BREAK
-#line 1433 "lex.yy.c"
+#line 1353 "lex.yy.c"
 			case YY_STATE_EOF(INITIAL):
 			case YY_STATE_EOF(CLASS_STATE):
 			case YY_STATE_EOF(CLASS_ATTR):
@@ -2414,7 +2334,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 352 "main.l"
+#line 272 "main.l"
 
 
 int yywrap() {
