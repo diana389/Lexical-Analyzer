@@ -1260,29 +1260,6 @@ case 13:
 YY_RULE_SETUP
 #line 192 "main.l"
 {
-    printf("arr: %s\n", yytext);
-
-    // int arraySize = extractArraySize(yytext);
-    // //printf("%d\n", arraySize);
-    
-    // for(int i = 0; i < arraySize; i++) {
-    //     total_obj_num++; // increase the number of objects
-
-    //     // allocate memory for the objects array
-    //     if(total_obj_num == 1)
-    //         objects = (char **)malloc(sizeof(char *));
-    //     else 
-    //         objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
-
-    //     if (objects == NULL) {
-    //         fprintf(stderr, "Memory allocation failed\n");
-    //         exit(1);
-    //     }
-
-        // allocate memory for the object name and copy it
-        // objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
-        // strcpy(objects[total_obj_num - 1], yytext);    
-    // }  
 
     strcpy(obj_name, yytext);
 
@@ -1294,9 +1271,8 @@ case 14:
 (yy_c_buf_p) = yy_cp = yy_bp + 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 222 "main.l"
+#line 199 "main.l"
 {
-    printf("%s\n", yytext);
     BEGIN(SIZE_STATE);
 }
 	YY_BREAK
@@ -1305,11 +1281,9 @@ case 15:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 227 "main.l"
+#line 203 "main.l"
 {
-    printf("%s\n", yytext);
     int arraySize = atoi(yytext);
-    printf("%d\n", arraySize);
     
     for(int i = 0; i < arraySize; i++) {
         total_obj_num++; // increase the number of objects
@@ -1325,8 +1299,6 @@ YY_RULE_SETUP
             exit(1);
         }
 
-        printf("%s\n", obj_name);
-
         // allocate memory for the object name and copy it
         objects[total_obj_num - 1] = (char *)malloc((strlen(obj_name) + 1) * sizeof(char));
         strcpy(objects[total_obj_num - 1], obj_name);    
@@ -1338,13 +1310,13 @@ YY_RULE_SETUP
 case 16:
 /* rule 16 can match eol */
 YY_RULE_SETUP
-#line 256 "main.l"
+#line 228 "main.l"
 {}
 	YY_BREAK
 case 17:
 /* rule 17 can match eol */
 YY_RULE_SETUP
-#line 258 "main.l"
+#line 230 "main.l"
 {  
 
     BEGIN(NEW_STATE);
@@ -1352,7 +1324,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 263 "main.l"
+#line 235 "main.l"
 {
     //printf("%s\n", yytext);
     total_obj_num++; // increase the number of objects
@@ -1378,15 +1350,15 @@ YY_RULE_SETUP
 case 19:
 /* rule 19 can match eol */
 YY_RULE_SETUP
-#line 285 "main.l"
+#line 257 "main.l"
 { }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 286 "main.l"
+#line 258 "main.l"
 ECHO;
 	YY_BREAK
-#line 1390 "lex.yy.c"
+#line 1362 "lex.yy.c"
 			case YY_STATE_EOF(INITIAL):
 			case YY_STATE_EOF(CLASS_STATE):
 			case YY_STATE_EOF(CLASS_ATTR):
@@ -2373,7 +2345,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 286 "main.l"
+#line 258 "main.l"
 
 
 int yywrap() {

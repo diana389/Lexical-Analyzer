@@ -190,29 +190,6 @@ class   {
 }
 
 <NEW_STATE>[a-zA-Z]+/\[[0-9]+\]    {
-    printf("arr: %s\n", yytext);
-
-    // int arraySize = extractArraySize(yytext);
-    // //printf("%d\n", arraySize);
-    
-    // for(int i = 0; i < arraySize; i++) {
-    //     total_obj_num++; // increase the number of objects
-
-    //     // allocate memory for the objects array
-    //     if(total_obj_num == 1)
-    //         objects = (char **)malloc(sizeof(char *));
-    //     else 
-    //         objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
-
-    //     if (objects == NULL) {
-    //         fprintf(stderr, "Memory allocation failed\n");
-    //         exit(1);
-    //     }
-
-        // allocate memory for the object name and copy it
-        // objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
-        // strcpy(objects[total_obj_num - 1], yytext);    
-    // }  
 
     strcpy(obj_name, yytext);
 
@@ -220,14 +197,11 @@ class   {
 }
 
 <PARANTHESIS>\[/[0-9]+\]    {
-    printf("%s\n", yytext);
     BEGIN(SIZE_STATE);
 }
 
 <SIZE_STATE>[0-9]+/\]    {
-    printf("%s\n", yytext);
     int arraySize = atoi(yytext);
-    printf("%d\n", arraySize);
     
     for(int i = 0; i < arraySize; i++) {
         total_obj_num++; // increase the number of objects
@@ -242,8 +216,6 @@ class   {
             fprintf(stderr, "Memory allocation failed\n");
             exit(1);
         }
-
-        printf("%s\n", obj_name);
 
         // allocate memory for the object name and copy it
         objects[total_obj_num - 1] = (char *)malloc((strlen(obj_name) + 1) * sizeof(char));
