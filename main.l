@@ -23,29 +23,7 @@
     class *classes;
     char **objects;
     int total_obj_num = 0;
-
-    char* getLastWord(char *sentence) {
-        // Create a copy of the sentence as strtok modifies the input
-        char *lastWord = (char*)malloc(100 * sizeof(char));
-
-        // Tokenize the sentence
-        char *token = strtok(sentence, " \t\n");
-
-        // Find the last token
-        while (token != NULL) {
-            strcpy(lastWord, token);
-            token = strtok(NULL, " \t\n");
-        }
-
-        lastWord[strlen(lastWord) - 1] = '\0';
-
-        return lastWord;
-    }
-
-    void extractAttrFromMethod(char *method) {
-        strcpy(method, method + 3);
-        method[0] = tolower(method[0]);
-    }
+    char obj_name[100];
 
     void addSetMethodToAttr(char *method) {
         for(int i = 0; i < class_num; i++) {
@@ -83,7 +61,7 @@
     }
 %}
 
-%s CLASS_STATE CLASS_ATTR MAIN_STATE ATTR_NAME_STATE SET_STATE GET_STATE NEW_STATE
+%s CLASS_STATE CLASS_ATTR MAIN_STATE ATTR_NAME_STATE SET_STATE GET_STATE NEW_STATE PARANTHESIS SIZE_STATE
 
 %%
 
@@ -211,11 +189,45 @@ class   {
     BEGIN(NEW_STATE);
 }
 
-<NEW_STATE>[a-zA-Z]+\[[0-9]+\]    {
-    // printf("%s\n", yytext);
+<NEW_STATE>[a-zA-Z]+/\[[0-9]+\]    {
+    printf("arr: %s\n", yytext);
 
-    int arraySize = extractArraySize(yytext);
-    //printf("%d\n", arraySize);
+    // int arraySize = extractArraySize(yytext);
+    // //printf("%d\n", arraySize);
+    
+    // for(int i = 0; i < arraySize; i++) {
+    //     total_obj_num++; // increase the number of objects
+
+    //     // allocate memory for the objects array
+    //     if(total_obj_num == 1)
+    //         objects = (char **)malloc(sizeof(char *));
+    //     else 
+    //         objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
+
+    //     if (objects == NULL) {
+    //         fprintf(stderr, "Memory allocation failed\n");
+    //         exit(1);
+    //     }
+
+        // allocate memory for the object name and copy it
+        // objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
+        // strcpy(objects[total_obj_num - 1], yytext);    
+    // }  
+
+    strcpy(obj_name, yytext);
+
+    BEGIN(PARANTHESIS);
+}
+
+<PARANTHESIS>\[/[0-9]+\]    {
+    printf("%s\n", yytext);
+    BEGIN(SIZE_STATE);
+}
+
+<SIZE_STATE>[0-9]+/\]    {
+    printf("%s\n", yytext);
+    int arraySize = atoi(yytext);
+    printf("%d\n", arraySize);
     
     for(int i = 0; i < arraySize; i++) {
         total_obj_num++; // increase the number of objects
@@ -231,9 +243,11 @@ class   {
             exit(1);
         }
 
+        printf("%s\n", obj_name);
+
         // allocate memory for the object name and copy it
-        objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
-        strcpy(objects[total_obj_num - 1], yytext);    
+        objects[total_obj_num - 1] = (char *)malloc((strlen(obj_name) + 1) * sizeof(char));
+        strcpy(objects[total_obj_num - 1], obj_name);    
     }  
 
     BEGIN(MAIN_STATE);
