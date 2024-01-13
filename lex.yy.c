@@ -351,8 +351,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 13
-#define YY_END_OF_BUFFER 14
+#define YY_NUM_RULES 18
+#define YY_END_OF_BUFFER 19
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -360,27 +360,54 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[173] =
+static const flex_int16_t yy_acclist[147] =
     {   0,
-        0,    0,    0,    0,    0,    0,    0,    0,   14,   12,
-       12,   12,   12,   12,    4,    4,    4,   12,   12,   12,
-       12,   12,   12,   12,   12,    0,    0,    0,    0,    0,
-        4,    4,    4,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,    1,    0,    0,    4,
-        4,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    1,    0,    0,    4,    4,    0,    7,    0,    0,
-        6,    0,    0,    0,    0,    0,    3,    0,    3,    4,
-        0,    0,    0,    0,    0,    3,   11,    0,    0,    4,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+       19,   17,   18,   17,   18,   17,   18,   17,   18,   17,
+       18,    4,   17,   18,    4,   17,   18,    4,   17,   18,
+       17,   18,   17,   18,   17,   18,   17,   18,   17,   18,
+       17,   18,   17,   18,   17,   18,    6,   17,   18,    6,
+       17,   18,    6,   17,   18,    8,   17,   18,    8,   17,
+       18,    8,   17,   18,   10,   17,   18,   10,   17,   18,
+       10,   17,   18,   16,   17,   18,   16,   17,   18,   16,
+       17,   18,    4,    4,    4,    6,    6,    6,    8,    8,
+        8,   10,   10,   10,   16,   16,   16,    1,    4,    4,
+        6,    6,    8,    8,   10,   10,   16,   16,    1,    4,
 
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    9,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        5,    0,    0,   10,   10,    2,    0,    2,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        8,    0
+        4,    9,    7,16396,16399,    6,    6,    8,    8,   10,
+       10,   13,   16,   16,    3,    3,    4,    4,    3, 8207,
+        3,    6,    6,    3,    8,    8,    3,   10,   10,    3,
+       16,   16,    4,    6,    8,   10,   16, 8204,16389, 8197,
+       14,   14,    2,    2,16389,   11
+    } ;
+
+static const flex_int16_t yy_accept[237] =
+    {   0,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    2,    4,    6,
+        8,   10,   12,   15,   18,   21,   23,   25,   27,   29,
+       31,   33,   35,   37,   40,   43,   46,   49,   52,   55,
+       58,   61,   64,   67,   70,   73,   73,   73,   73,   73,
+       73,   74,   75,   76,   76,   76,   76,   76,   76,   76,
+       76,   76,   76,   76,   76,   77,   78,   79,   80,   81,
+       82,   83,   84,   85,   86,   86,   87,   88,   88,   88,
+       89,   89,   89,   90,   91,   91,   91,   91,   91,   91,
+       91,   91,   91,   91,   91,   92,   93,   94,   95,   96,
+
+       97,   97,   98,   99,  100,  100,  100,  101,  102,  102,
+      103,  103,  103,  104,  104,  104,  104,  106,  106,  107,
+      108,  109,  110,  111,  112,  113,  114,  115,  116,  116,
+      118,  119,  119,  119,  119,  119,  119,  120,  121,  121,
+      123,  124,  126,  127,  129,  130,  132,  133,  133,  134,
+      134,  134,  134,  134,  134,  134,  134,  135,  136,  137,
+      138,  138,  138,  138,  138,  138,  138,  138,  138,  138,
+      138,  138,  138,  138,  138,  138,  138,  139,  139,  139,
+      140,  140,  140,  140,  140,  140,  140,  140,  140,  140,
+      140,  140,  140,  140,  141,  141,  141,  142,  143,  144,
+
+      144,  145,  145,  145,  145,  145,  146,  146,  146,  146,
+      146,  146,  146,  146,  146,  146,  146,  146,  146,  146,
+      146,  146,  146,  146,  146,  146,  146,  146,  146,  146,
+      146,  146,  146,  146,  147,  147
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -423,174 +450,246 @@ static const YY_CHAR yy_meta[33] =
         5,    5
     } ;
 
-static const flex_int16_t yy_base[186] =
+static const flex_int16_t yy_base[253] =
     {   0,
-        0,   25,   51,    0,   82,    0,  110,    0,  433,  434,
-        6,  425,  409,  400,    0,  407,  398,    4,  408,    4,
-      407,  412,    1,    2,    3,   33,  417,   16,  408,  406,
-        0,  406,  404,   15,   16,  390,  397,  401,  387,  402,
-      400,   32,   12,   74,  410,   46,   89,  384,  389,  382,
-      387,  392,    0,  376,  384,    0,  391,   92,   11,  141,
-       75,  434,  376,  382,  374,  380,  378,    0,  384,  377,
-        0,  153,  148,  133,  101,   88,  434,  379,    0,  378,
-      372,  352,  363,  145,  162,  360,  166,  158,  170,  174,
-      355,  351,  178,  181,  184,  358,  187,  348,  175,  194,
+        0,   25,   51,    0,   82,    0,  110,    0,  142,    0,
+      174,    0,  206,    0,  238,    0,  634,  635,    6,  626,
+      610,  601,    0,  608,  599,    4,  609,    4,  608,  613,
+        1,    2,    3,    0,  603,  594,    0,  601,  592,    0,
+      599,  590,  606,   22,    6,   36,  611,   43,  602,  600,
+        0,  600,  598,   11,   60,  584,  591,  595,  581,  596,
+      594,    7,   75,   78,    0,  592,  590,    0,  590,  588,
+        0,  588,  586,  588,  592,   35,   79,  596,   94,  101,
+      570,  575,  568,  573,  578,    0,  562,  570,    0,  577,
+      269,  261,  273,   87,  562,  567,  560,  565,  558,  563,
 
-      345,  176,  180,  342,  193,  332,  313,    0,  207,  210,
-      213,  188,  306,  434,  322,  321,    0,  219,  222,  225,
-      241,  303,  301,  310,  244,  247,  276,  250,  290,  296,
-      434,  259,  253,  290,  256,  434,  299,  262,  303,  311,
-      265,  283,  282,  287,  210,  290,  197,  292,   89,  305,
-      227,  285,  287,  280,  264,  270,  261,  242,  243,  220,
-      216,  218,  220,  216,  158,  145,  126,   80,   10,    0,
-      434,  434,  320,  324,  331,  335,  343,  351,  355,  359,
-      366,  370,  374,  382,  389
+      270,  266,  268,  635,  556,  562,  554,  560,  558,    0,
+      564,  557,    0,  293,  289,  272,  302,   28,  549,  555,
+      547,  553,  545,  551,  635,  274,   80,  635,  553,    0,
+      552,  546,  526,  537,  306,  309,  534,  312,  304,    0,
+      529,    0,  527,    0,  523,  526,  305,  324,  327,  519,
+      516,  330,  333,  336,  520,  339,  342,  346,  351,  359,
+      499,  339,  362,  495,  341,  305,  492,  274,  486,  478,
+        0,  371,  374,  377,  266,  472,  635,  488,  485,    0,
+      380,  383,  386,  389,  468,  466,  485,  399,  405,  434,
+      408,  461,  467,  635,  417,  411,  448,  414,  635,  460,
+
+      420,  461,  472,  426,  443,  442,  447,  450,  450,    3,
+      452,  350,  465,  390,  445,  452,  445,  436,  441,  421,
+      402,  399,  404,  381,  384,  384,  357,  366,  336,  296,
+      281,   78,    0,  635,  635,  478,  482,  489,  493,  497,
+      501,  505,  509,  517,  525,  529,  533,  540,  544,  548,
+      556,  563
     } ;
 
-static const flex_int16_t yy_def[186] =
+static const flex_int16_t yy_def[253] =
     {   0,
-      173,  173,  172,    3,  173,    5,  172,    7,  172,  172,
-      172,  172,  172,  172,  174,  174,  174,  175,  172,  172,
-      172,  176,  176,  176,  176,  172,  172,  177,  172,  172,
-      174,  174,  174,  175,  172,  172,  172,  172,  172,  176,
-      178,  176,  176,  176,  177,  177,  177,  172,  172,  174,
-      174,  172,  179,  172,  172,  180,  178,  178,  176,  176,
-      176,  172,  172,  172,  174,  174,  172,  179,  172,  172,
-      180,  178,  172,  176,  181,  176,  172,  172,  174,  174,
-      172,  172,  172,  178,  172,  176,  181,  176,  172,  174,
-      172,  172,  172,  178,  172,  172,  176,  172,  172,  172,
+      236,  236,  235,    3,  236,    5,  235,    7,  235,    9,
+      235,   11,  235,   13,  235,   15,  235,  235,  235,  235,
+      235,  235,  237,  237,  237,  238,  235,  235,  235,  239,
+      239,  239,  239,  240,  240,  240,  241,  241,  241,  242,
+      242,  242,  243,  243,  243,  235,  235,  244,  235,  235,
+      237,  237,  237,  238,  235,  235,  235,  235,  235,  239,
+      245,  239,  239,  239,  240,  240,  240,  241,  241,  241,
+      242,  242,  242,  243,  235,  243,  243,  244,  244,  244,
+      235,  235,  237,  237,  235,  246,  235,  235,  247,  245,
+      245,  239,  239,  239,  240,  240,  241,  241,  242,  242,
 
-      182,  182,  178,  172,  172,  172,  172,  182,  182,  182,
-      182,  178,  172,  172,  172,  172,  183,  182,  182,  178,
-      172,  172,  172,  183,  182,  182,  184,  185,  172,  172,
-      172,  182,  182,  184,  185,  172,  172,  182,  182,  172,
-      182,  172,  183,  172,  183,  172,  183,  172,  183,  172,
-      183,  172,  172,  172,  172,  172,  172,  172,  172,  172,
-      172,  172,  172,  172,  172,  172,  172,  172,  172,  172,
-      172,    0,  172,  172,  172,  172,  172,  172,  172,  172,
-      172,  172,  172,  172,  172
+      235,  243,  243,  235,  235,  235,  237,  237,  235,  246,
+      235,  235,  247,  245,  235,  239,  248,  239,  240,  240,
+      241,  241,  242,  242,  235,  243,  243,  235,  235,  237,
+      237,  235,  235,  235,  245,  235,  239,  248,  239,  240,
+      240,  241,  241,  242,  242,  243,  243,  235,  237,  235,
+      235,  235,  245,  235,  235,  239,  240,  241,  242,  243,
+      235,  235,  235,  249,  249,  245,  235,  235,  235,  235,
+      249,  249,  249,  249,  245,  235,  235,  235,  235,  250,
+      249,  249,  245,  235,  235,  235,  250,  249,  249,  251,
+      252,  235,  235,  235,  249,  249,  251,  252,  235,  235,
+
+      249,  249,  235,  249,  235,  250,  235,  250,  235,  250,
+      235,  250,  235,  250,  235,  235,  235,  235,  235,  235,
+      235,  235,  235,  235,  235,  235,  235,  235,  235,  235,
+      235,  235,  235,  235,    0,  235,  235,  235,  235,  235,
+      235,  235,  235,  235,  235,  235,  235,  235,  235,  235,
+      235,  235
     } ;
 
-static const flex_int16_t yy_nxt[467] =
+static const flex_int16_t yy_nxt[668] =
     {   0,
-      172,   11,   11,   11,  172,  171,   12,   26,   26,   26,
-       27,  172,   27,   41,   41,   41,   13,   46,   47,   46,
-       43,   27,   42,   41,   41,   14,   11,   11,   11,   35,
-       37,   12,   44,   38,   26,   26,   26,  170,   74,   27,
-       35,   13,   37,   60,   41,   52,   59,   46,   47,   46,
-       14,   10,   11,   11,   11,   10,   10,   12,   10,   10,
-       10,   15,   15,   10,   10,   15,   15,   16,   15,   15,
-       15,   15,   15,   15,   15,   15,   17,   15,   15,   15,
-       15,   15,   15,   18,   18,   18,   41,   41,   12,   61,
-       46,   47,   46,   72,   73,   72,   76,  131,   13,  169,
+      235,   19,   19,   19,  235,  234,   20,   46,   46,   46,
+       47,  194,   47,   61,   61,   61,   21,   47,   75,   61,
+       63,   92,   62,  212,  235,   22,   19,   19,   19,   55,
+       57,   20,   64,   58,   75,   77,   55,   46,   46,   46,
+       61,   21,   47,   76,   79,   80,   79,   75,  139,  102,
+       22,   18,   19,   19,   19,   18,   18,   20,   18,   18,
+       18,   23,   23,   18,   18,   23,   23,   24,   23,   23,
+       23,   23,   23,   23,   23,   23,   25,   23,   23,   23,
+       23,   23,   23,   26,   26,   26,   57,   61,   20,   85,
+       61,   75,   75,   94,  103,   79,   80,   79,   21,   61,
 
-       41,   19,   75,   75,   75,   58,  151,   20,   88,   21,
-       10,   11,   11,   11,   10,   10,   12,   10,   10,   10,
-       22,   22,   10,   10,   22,   22,   23,   22,   22,   22,
-       22,   22,   22,   24,   22,   25,   22,   22,   22,   22,
-       22,   22,   75,   75,   75,   41,   94,   95,   94,   73,
-       73,   73,  168,   41,   72,   73,   72,   85,   58,  167,
-       86,  166,   84,   95,   95,   95,   58,  172,  172,  172,
-       41,   98,   98,   99,   97,   98,   98,   99,   96,  101,
-      101,  102,   94,   95,   94,   95,   95,   95,   98,   98,
-       99,  106,  110,   58,   58,  108,  108,  108,  112,   41,
+      147,   27,   79,   80,   79,  233,   93,   28,  118,   29,
+       18,   19,   19,   19,   18,   18,   20,   18,   18,   18,
+       30,   30,   18,   18,   30,   30,   31,   30,   30,   30,
+       30,   30,   30,   32,   30,   33,   30,   30,   30,   30,
+       30,   30,   18,   19,   19,   19,   18,   18,   20,   18,
+       18,   18,   34,   34,   18,   18,   34,   34,   35,   34,
+       34,   34,   34,   34,   34,   34,   34,   36,   34,   34,
+       34,   34,   34,   34,   18,   19,   19,   19,   18,   18,
+       20,   18,   18,   18,   37,   37,   18,   18,   37,   37,
+       38,   37,   37,   37,   37,   37,   37,   37,   37,   39,
 
-      105,   58,  107,  111,  103,  131,  114,  104,  117,  117,
-      117,  117,  117,  117,  117,  117,  117,  149,  131,  120,
-      117,  117,  117,  117,  117,  117,  127,  128,  127,  165,
-      152,  118,  164,  125,  147,  131,  126,  163,   58,  162,
-      161,  119,  128,  128,  128,  117,  117,  117,  117,  117,
-      117,  128,  128,  128,  117,  117,  117,  172,  172,  172,
-      117,  117,  117,  117,  117,  117,  117,  117,  143,  160,
-      159,  132,  158,  139,  157,  133,   57,  127,  128,  127,
-       57,   57,   57,   57,   57,   57,  138,  156,   57,   58,
-       57,   57,  172,   57,   57,   57,   57,   57,   57,   57,
+       37,   37,   37,   37,   37,   37,   18,   19,   19,   19,
+       18,   18,   20,   18,   18,   18,   40,   40,   18,   18,
+       40,   40,   41,   40,   40,   40,   40,   40,   40,   40,
+       40,   42,   40,   40,   40,   40,   40,   40,   18,   19,
+       19,   19,   18,   18,   20,   18,   18,   18,   43,   43,
+       18,   18,   43,   43,   44,   43,   43,   43,   43,   43,
+       43,   43,   43,   45,   43,   43,   43,   43,   43,   43,
+      114,  115,  114,   61,  117,  117,  117,  101,   75,   91,
+       75,  168,   91,  125,   61,   61,   75,  177,  116,  127,
+      115,  115,  115,  126,  114,  115,  114,  183,  136,  137,
 
-      155,  154,   57,   58,  117,  117,  117,  153,  152,  150,
-      148,  146,  145,  144,  142,  140,  137,  136,  131,  141,
-       10,   10,   10,   10,   10,   10,   10,   10,   31,  130,
-      129,   31,   34,   34,   34,  123,  122,  121,   34,   40,
-       40,  116,   40,   45,   45,   45,   45,   45,   45,   45,
-       45,   57,   57,  115,   57,   57,   57,   57,   57,   68,
-      113,  110,   68,   71,  106,  105,   71,   87,   87,  100,
-       87,  100,   41,   87,  109,  109,  109,  109,  124,   93,
-       92,  124,  134,  134,  134,  134,  134,  134,  134,  134,
-      135,  135,   91,  135,   90,   89,  135,   83,   82,   81,
+      232,  146,  135,  117,  117,  117,   91,  153,  154,  153,
+      154,  154,  154,  235,  235,  235,   61,   75,   91,   91,
+      156,  160,  231,  175,  155,  161,  161,  162,  161,  161,
+      162,  164,  164,  165,  153,  154,  153,  154,  154,  154,
+      161,  161,  162,  161,  161,  162,   91,  161,  161,  162,
+      230,   61,  161,  161,  162,  169,  166,  173,  194,  167,
+      161,  161,  162,  171,  171,  171,  170,  214,  174,  229,
+      228,   75,  180,  180,  180,  180,  180,  180,  180,  180,
+      180,  180,  180,  180,  180,  180,  180,  190,  191,  190,
+      191,  191,  191,  215,  188,  181,  227,  189,  194,   91,
 
-       80,   79,   78,   77,   58,   70,   69,   67,   66,   65,
-       64,   63,   62,   58,   41,   56,   55,   54,   53,   51,
-       50,   49,   48,   28,   41,   39,   36,   33,   32,   30,
-       29,   28,  172,    9,  172,  172,  172,  172,  172,  172,
-      172,  172,  172,  172,  172,  172,  172,  172,  172,  172,
-      172,  172,  172,  172,  172,  172,  172,  172,  172,  172,
-      172,  172,  172,  172,  172,  172
+      180,  180,  180,  226,  225,  182,  180,  180,  180,  191,
+      191,  191,  180,  180,  180,  235,  235,  235,  180,  180,
+      180,  180,  180,  180,  224,  223,  195,  180,  180,  206,
+      222,  202,  221,  196,   90,  190,  191,  190,   90,   90,
+       90,   90,   90,   90,  201,  220,   90,   91,   90,   90,
+      235,   90,   90,   90,   90,   90,   90,   90,  194,  219,
+       90,   91,  180,  180,  180,  218,  217,  216,  215,  213,
+      211,  209,  208,  207,  210,  205,  203,  204,   18,   18,
+       18,   18,   18,   18,   18,   18,   51,  200,  199,   51,
+       54,   54,   54,  194,  193,  192,   54,   60,   60,  186,
+
+       60,   65,  185,  184,   65,   68,  179,  178,   68,   71,
+      176,  173,   71,   74,   74,  169,   74,   78,   78,   78,
+       78,   78,   78,   78,   78,   90,   90,  168,   90,   90,
+       90,   90,   90,  110,  163,  163,  110,  113,   75,  159,
+      113,  138,  138,  158,  138,  157,   61,  138,  172,  172,
+      172,  172,  187,  152,  151,  187,  197,  197,  197,  197,
+      197,  197,  197,  197,  198,  198,  150,  198,  149,  148,
+      198,  145,  144,  143,  142,  141,  140,  134,  133,  132,
+      131,  130,  129,  128,  124,  123,  122,  121,  120,  119,
+       91,  112,  111,  109,  108,  107,  106,  105,  104,  101,
+
+       75,  100,   99,   98,   97,   96,   95,   91,   61,   89,
+       88,   87,   86,   84,   83,   82,   81,   48,   75,   73,
+       72,   70,   69,   67,   66,   61,   59,   56,   53,   52,
+       50,   49,   48,  235,   17,  235,  235,  235,  235,  235,
+      235,  235,  235,  235,  235,  235,  235,  235,  235,  235,
+      235,  235,  235,  235,  235,  235,  235,  235,  235,  235,
+      235,  235,  235,  235,  235,  235,  235
     } ;
 
-static const flex_int16_t yy_chk[467] =
+static const flex_int16_t yy_chk[668] =
     {   0,
-        0,    1,    1,    1,    0,  170,    1,   11,   11,   11,
-       18,    0,   11,   23,   24,   25,    1,   28,   28,   28,
-       24,   34,   23,   59,   43,    1,    2,    2,    2,   18,
-       20,    2,   25,   20,   26,   26,   26,  169,   59,   26,
-       34,    2,   35,   43,   42,   35,   42,   46,   46,   46,
+        0,    1,    1,    1,    0,  233,    1,   19,   19,   19,
+       26,  210,   19,   31,   32,   33,    1,   54,   45,   62,
+       32,   62,   31,  210,    0,    1,    2,    2,    2,   26,
+       28,    2,   33,   28,   44,   45,   54,   46,   46,   46,
+      118,    2,   46,   44,   48,   48,   48,   76,  118,   76,
         2,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    3,    5,    5,    5,   44,   61,    5,   44,
-       47,   47,   47,   58,   58,   58,   61,  149,    5,  168,
+        3,    3,    3,    5,    5,    5,   55,   63,    5,   55,
+       64,   77,  127,   64,   77,   79,   79,   79,    5,   94,
 
-       76,    5,   75,   75,   75,   58,  149,    5,   76,    5,
+      127,    5,   80,   80,   80,  232,   63,    5,   94,    5,
         7,    7,    7,    7,    7,    7,    7,    7,    7,    7,
         7,    7,    7,    7,    7,    7,    7,    7,    7,    7,
         7,    7,    7,    7,    7,    7,    7,    7,    7,    7,
-        7,    7,   60,   60,   60,   74,   84,   84,   84,   73,
-       73,   73,  167,   60,   72,   72,   72,   73,   84,  166,
-       74,  165,   72,   85,   85,   85,   72,   87,   87,   87,
-       88,   89,   89,   89,   88,   90,   90,   90,   87,   93,
-       93,   93,   94,   94,   94,   95,   95,   95,   97,   97,
-       97,   99,  102,  103,   94,  100,  100,  100,  103,   97,
+        7,    7,    9,    9,    9,    9,    9,    9,    9,    9,
+        9,    9,    9,    9,    9,    9,    9,    9,    9,    9,
+        9,    9,    9,    9,    9,    9,    9,    9,    9,    9,
+        9,    9,    9,    9,   11,   11,   11,   11,   11,   11,
+       11,   11,   11,   11,   11,   11,   11,   11,   11,   11,
+       11,   11,   11,   11,   11,   11,   11,   11,   11,   11,
 
-      105,  112,   99,  102,   94,  147,  105,   95,  109,  109,
-      109,  110,  110,  110,  111,  111,  111,  147,  145,  112,
-      118,  118,  118,  119,  119,  119,  120,  120,  120,  164,
-      151,  110,  163,  118,  145,  151,  119,  162,  120,  161,
-      160,  111,  121,  121,  121,  125,  125,  125,  126,  126,
-      126,  128,  128,  128,  133,  133,  133,  135,  135,  135,
-      132,  132,  132,  138,  138,  138,  141,  141,  141,  159,
-      158,  125,  157,  133,  156,  126,  127,  127,  127,  127,
-      127,  127,  127,  127,  127,  127,  132,  155,  127,  127,
-      134,  134,  134,  134,  134,  134,  134,  134,  134,  134,
+       11,   11,   11,   11,   11,   11,   13,   13,   13,   13,
+       13,   13,   13,   13,   13,   13,   13,   13,   13,   13,
+       13,   13,   13,   13,   13,   13,   13,   13,   13,   13,
+       13,   13,   13,   13,   13,   13,   13,   13,   15,   15,
+       15,   15,   15,   15,   15,   15,   15,   15,   15,   15,
+       15,   15,   15,   15,   15,   15,   15,   15,   15,   15,
+       15,   15,   15,   15,   15,   15,   15,   15,   15,   15,
+       91,   91,   91,   92,   93,   93,   93,  101,  102,  175,
+      103,  168,   91,  101,  116,   93,  126,  168,   92,  103,
+      115,  115,  115,  102,  114,  114,  114,  175,  115,  116,
 
-      154,  153,  134,  134,  139,  139,  139,  152,  150,  148,
-      146,  144,  143,  142,  140,  137,  130,  129,  124,  139,
-      173,  173,  173,  173,  173,  173,  173,  173,  174,  123,
-      122,  174,  175,  175,  175,  116,  115,  113,  175,  176,
-      176,  107,  176,  177,  177,  177,  177,  177,  177,  177,
-      177,  178,  178,  106,  178,  178,  178,  178,  178,  179,
-      104,  101,  179,  180,   98,   96,  180,  181,  181,   92,
-      181,   91,   86,  181,  182,  182,  182,  182,  183,   83,
-       82,  183,  184,  184,  184,  184,  184,  184,  184,  184,
-      185,  185,   81,  185,   80,   78,  185,   70,   69,   67,
+      231,  126,  114,  117,  117,  117,  114,  135,  135,  135,
+      136,  136,  136,  138,  138,  138,  139,  147,  166,  135,
+      139,  147,  230,  166,  138,  148,  148,  148,  149,  149,
+      149,  152,  152,  152,  153,  153,  153,  154,  154,  154,
+      156,  156,  156,  157,  157,  157,  153,  158,  158,  158,
+      229,  156,  159,  159,  159,  162,  153,  165,  212,  154,
+      160,  160,  160,  163,  163,  163,  162,  212,  165,  228,
+      227,  160,  172,  172,  172,  173,  173,  173,  174,  174,
+      174,  181,  181,  181,  182,  182,  182,  183,  183,  183,
+      184,  184,  184,  214,  181,  173,  226,  182,  214,  183,
 
-       66,   65,   64,   63,   57,   55,   54,   52,   51,   50,
-       49,   48,   45,   41,   40,   39,   38,   37,   36,   33,
-       32,   30,   29,   27,   22,   21,   19,   17,   16,   14,
-       13,   12,    9,  172,  172,  172,  172,  172,  172,  172,
-      172,  172,  172,  172,  172,  172,  172,  172,  172,  172,
-      172,  172,  172,  172,  172,  172,  172,  172,  172,  172,
-      172,  172,  172,  172,  172,  172
+      188,  188,  188,  225,  224,  174,  189,  189,  189,  191,
+      191,  191,  196,  196,  196,  198,  198,  198,  195,  195,
+      195,  201,  201,  201,  223,  222,  188,  204,  204,  204,
+      221,  196,  220,  189,  190,  190,  190,  190,  190,  190,
+      190,  190,  190,  190,  195,  219,  190,  190,  197,  197,
+      197,  197,  197,  197,  197,  197,  197,  197,  208,  218,
+      197,  197,  202,  202,  202,  217,  216,  215,  213,  211,
+      209,  207,  206,  205,  208,  203,  200,  202,  236,  236,
+      236,  236,  236,  236,  236,  236,  237,  193,  192,  237,
+      238,  238,  238,  187,  186,  185,  238,  239,  239,  179,
+
+      239,  240,  178,  176,  240,  241,  170,  169,  241,  242,
+      167,  164,  242,  243,  243,  161,  243,  244,  244,  244,
+      244,  244,  244,  244,  244,  245,  245,  155,  245,  245,
+      245,  245,  245,  246,  151,  150,  246,  247,  146,  145,
+      247,  248,  248,  143,  248,  141,  137,  248,  249,  249,
+      249,  249,  250,  134,  133,  250,  251,  251,  251,  251,
+      251,  251,  251,  251,  252,  252,  132,  252,  131,  129,
+      252,  124,  123,  122,  121,  120,  119,  112,  111,  109,
+      108,  107,  106,  105,  100,   99,   98,   97,   96,   95,
+       90,   88,   87,   85,   84,   83,   82,   81,   78,   75,
+
+       74,   73,   72,   70,   69,   67,   66,   61,   60,   59,
+       58,   57,   56,   53,   52,   50,   49,   47,   43,   42,
+       41,   39,   38,   36,   35,   30,   29,   27,   25,   24,
+       22,   21,   20,   17,  235,  235,  235,  235,  235,  235,
+      235,  235,  235,  235,  235,  235,  235,  235,  235,  235,
+      235,  235,  235,  235,  235,  235,  235,  235,  235,  235,
+      235,  235,  235,  235,  235,  235,  235
     } ;
-
-static yy_state_type yy_last_accepting_state;
-static char *yy_last_accepting_cpos;
 
 extern int yy_flex_debug;
 int yy_flex_debug = 0;
 
-/* The intent behind this definition is that it'll catch
- * any uses of REJECT which flex missed.
- */
-#define REJECT reject_used_but_not_detected
+static yy_state_type *yy_state_buf=0, *yy_state_ptr=0;
+static char *yy_full_match;
+static int yy_lp;
+static int yy_looking_for_trail_begin = 0;
+static int yy_full_lp;
+static int *yy_full_state;
+#define YY_TRAILING_MASK 0x2000
+#define YY_TRAILING_HEAD_MASK 0x4000
+#define REJECT \
+{ \
+*yy_cp = (yy_hold_char); /* undo effects of setting up yytext */ \
+yy_cp = (yy_full_match); /* restore poss. backed-over text */ \
+(yy_lp) = (yy_full_lp); /* restore orig. accepting pos. */ \
+(yy_state_ptr) = (yy_full_state); /* restore orig. state */ \
+yy_current_state = *(yy_state_ptr); /* restore curr. state */ \
+++(yy_lp); \
+goto find_rule; \
+}
+
 #define yymore() yymore_used_but_not_detected
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
@@ -679,14 +778,18 @@ char *yytext;
         token = strtok(token, "]");
         return atoi(token);
     }
-#line 683 "lex.yy.c"
+#line 782 "lex.yy.c"
 
-#line 685 "lex.yy.c"
+#line 784 "lex.yy.c"
 
 #define INITIAL 0
 #define CLASS_STATE 1
 #define CLASS_ATTR 2
 #define MAIN_STATE 3
+#define ATTR_NAME_STATE 4
+#define SET_STATE 5
+#define GET_STATE 6
+#define NEW_STATE 7
 
 #ifndef YY_NO_UNISTD_H
 /* Special case for "unistd.h", since it is non-ANSI. We include it way
@@ -882,6 +985,12 @@ YY_DECL
 		YY_USER_INIT;
 #endif
 
+        /* Create the reject buffer large enough to save one state per allowed character. */
+        if ( ! (yy_state_buf) )
+            (yy_state_buf) = (yy_state_type *)yyalloc(YY_STATE_BUF_SIZE  );
+            if ( ! (yy_state_buf) )
+                YY_FATAL_ERROR( "out of dynamic memory in yylex()" );
+
 		if ( ! (yy_start) )
 			(yy_start) = 1;	/* first start state */
 
@@ -904,7 +1013,7 @@ YY_DECL
 #line 88 "main.l"
 
 
-#line 908 "lex.yy.c"
+#line 1017 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -919,33 +1028,63 @@ YY_DECL
 		yy_bp = yy_cp;
 
 		yy_current_state = (yy_start);
+
+		(yy_state_ptr) = (yy_state_buf);
+		*(yy_state_ptr)++ = yy_current_state;
+
 yy_match:
 		do
 			{
 			YY_CHAR yy_c = yy_ec[YY_SC_TO_UI(*yy_cp)] ;
-			if ( yy_accept[yy_current_state] )
-				{
-				(yy_last_accepting_state) = yy_current_state;
-				(yy_last_accepting_cpos) = yy_cp;
-				}
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 173 )
+				if ( yy_current_state >= 236 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
+			*(yy_state_ptr)++ = yy_current_state;
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 434 );
+		while ( yy_base[yy_current_state] != 635 );
 
 yy_find_action:
-		yy_act = yy_accept[yy_current_state];
-		if ( yy_act == 0 )
-			{ /* have to back up */
-			yy_cp = (yy_last_accepting_cpos);
-			yy_current_state = (yy_last_accepting_state);
-			yy_act = yy_accept[yy_current_state];
+		yy_current_state = *--(yy_state_ptr);
+		(yy_lp) = yy_accept[yy_current_state];
+find_rule: /* we branch to this label when backing up */
+		for ( ; ; ) /* until we find what rule we matched */
+			{
+			if ( (yy_lp) && (yy_lp) < yy_accept[yy_current_state + 1] )
+				{
+				yy_act = yy_acclist[(yy_lp)];
+				if ( yy_act & YY_TRAILING_HEAD_MASK ||
+				     (yy_looking_for_trail_begin) )
+					{
+					if ( yy_act == (yy_looking_for_trail_begin) )
+						{
+						(yy_looking_for_trail_begin) = 0;
+						yy_act &= ~YY_TRAILING_HEAD_MASK;
+						break;
+						}
+					}
+				else if ( yy_act & YY_TRAILING_MASK )
+					{
+					(yy_looking_for_trail_begin) = yy_act & ~YY_TRAILING_MASK;
+					(yy_looking_for_trail_begin) |= YY_TRAILING_HEAD_MASK;
+					}
+				else
+					{
+					(yy_full_match) = yy_cp;
+					(yy_full_state) = (yy_state_ptr);
+					(yy_full_lp) = (yy_lp);
+					break;
+					}
+				++(yy_lp);
+				goto find_rule;
+				}
+			--yy_cp;
+			yy_current_state = *--(yy_state_ptr);
+			(yy_lp) = yy_accept[yy_current_state];
 			}
 
 		YY_DO_BEFORE_ACTION;
@@ -954,13 +1093,6 @@ do_action:	/* This label is used only to access EOF actions. */
 
 		switch ( yy_act )
 	{ /* beginning of action switch */
-			case 0: /* must back up */
-			/* undo the effects of YY_DO_BEFORE_ACTION */
-			*yy_cp = (yy_hold_char);
-			yy_cp = (yy_last_accepting_cpos);
-			yy_current_state = (yy_last_accepting_state);
-			goto yy_find_action;
-
 case 1:
 /* rule 1 can match eol */
 *yy_cp = (yy_hold_char); /* undo effects of setting up yytext */
@@ -976,183 +1108,337 @@ case 2:
 YY_RULE_SETUP
 #line 92 "main.l"
 {  
-                            BEGIN(CLASS_STATE); 
-                            class_num++;
-                            pubic_class_num++;
+    BEGIN(CLASS_STATE); 
 
-                            if(pubic_class_num > 1) {
-                                printf("Eroare: mai multe clase publice\n");
-                                exit(1);
-                            }
+    class_num++; // increase the number of classes
+    pubic_class_num++; // increase the number of public classes
 
-                            if(class_num == 1)
-                                classes = (class *)malloc(sizeof(class));
-                            else 
-                                classes = (class *)realloc(classes, class_num * sizeof(class));
+    // print error if there are more than one public classes
+    if(pubic_class_num > 1) {
+        printf("Eroare: mai multe clase publice\n");
+        exit(1);
+    }
 
-                            if (classes == NULL) {
-                                fprintf(stderr, "Memory allocation failed\n");
-                                exit(1);
-                            }
-                        }
+    // allocate memory for the classes array
+    if(class_num == 1)
+        classes = (class *)malloc(sizeof(class));
+    else 
+        classes = (class *)realloc(classes, class_num * sizeof(class));
+
+    if (classes == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(1);
+    }
+}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 113 "main.l"
+#line 116 "main.l"
 {  
-                    BEGIN(CLASS_STATE); 
-                    class_num++;
-                    if(class_num == 1)
-                        classes = (class *)malloc(sizeof(class));
-                    else 
-                        classes = (class *)realloc(classes, class_num * sizeof(class));
+    BEGIN(CLASS_STATE); 
 
-                    if (classes == NULL) {
-                        fprintf(stderr, "Memory allocation failed\n");
-                        exit(1);
-                    }
-                 }
+    class_num++; // increase the number of classes
+
+    // allocate memory for the classes array
+    if(class_num == 1)
+        classes = (class *)malloc(sizeof(class));
+    else 
+        classes = (class *)realloc(classes, class_num * sizeof(class));
+
+    if (classes == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(1);
+    }
+}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 127 "main.l"
+#line 133 "main.l"
 {  
-                            classes[class_num - 1].name = (char *)malloc((yyleng + 1) * sizeof(char));
-                            strcpy(classes[class_num - 1].name, yytext);
+    // copy the class name
+    classes[class_num - 1].name = (char *)malloc((yyleng + 1) * sizeof(char));
+    strcpy(classes[class_num - 1].name, yytext);
 
-                            classes[class_num - 1].attr_num = 0;
-                            classes[class_num - 1].obj_num = 0;
+    // initialize the attributes and objects number
+    classes[class_num - 1].attr_num = 0;
+    classes[class_num - 1].obj_num = 0;
 
-                            BEGIN(CLASS_ATTR); 
-                         }
+    BEGIN(CLASS_ATTR); 
+}
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 137 "main.l"
+#line 145 "main.l"
 {
-                    // This part recognizes the specified line pattern
-                    char *lastWord = getLastWord(yytext);
-                    // printf("%s\n", lastWord);
+    // printf("OBJ: %s\n", yytext);
 
-                    class *current_class = &classes[class_num - 1];
-                    current_class->attr_num++;
-                
-                    if(current_class->attr_num == 1)
-                        current_class->attributes = (attr *)malloc(sizeof(attr));
-                    else 
-                        current_class->attributes = (attr *)realloc(current_class->attributes, current_class->attr_num * sizeof(attr));
-                
-                    current_class->attributes[current_class->attr_num - 1].name = (char *)malloc((strlen(lastWord) + 1) * sizeof(char));
-                    strcpy(current_class->attributes[current_class->attr_num - 1].name, lastWord);
-                    current_class->attributes[current_class->attr_num - 1].SetMethod = false;
-                    current_class->attributes[current_class->attr_num - 1].SetMethod = false;
-                }
+
+    // // This part recognizes the specified line pattern
+    // char *lastWord = getLastWord(yytext);
+    // printf("lastWord: %s\n", lastWord);
+
+    // class *current_class = &classes[class_num - 1]; // current class is the last class added to the array
+    // current_class->attr_num++; // increase the number of attributes
+
+    // // allocate memory for the attributes array
+    // if(current_class->attr_num == 1)
+    //     current_class->attributes = (attr *)malloc(sizeof(attr));
+    // else 
+    //     current_class->attributes = (attr *)realloc(current_class->attributes, current_class->attr_num * sizeof(attr));
+
+    // if (current_class->attributes == NULL) {
+    //     fprintf(stderr, "Memory allocation failed\n");
+    //     exit(1);
+    // }
+
+    // // copy the attribute name
+    // current_class->attributes[current_class->attr_num - 1].name = (char *)malloc((strlen(lastWord) + 1) * sizeof(char));
+    // strcpy(current_class->attributes[current_class->attr_num - 1].name, lastWord);
+
+    // // initialize the GetMethod and SetMethod flags
+    // current_class->attributes[current_class->attr_num - 1].SetMethod = false;
+    // current_class->attributes[current_class->attr_num - 1].SetMethod = false;
+
+    BEGIN(ATTR_NAME_STATE);
+}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 156 "main.l"
+#line 178 "main.l"
 {
-                                //printf("%s\n", yytext);
-                                extractAttrFromMethod(yytext);
-                                //printf("%s\n", yytext);
-                                addSetMethodToAttr(yytext);
-                            }
+    // printf("ATTR: %s\n", yytext);
+
+    class *current_class = &classes[class_num - 1]; // current class is the last class added to the array
+    current_class->attr_num++; // increase the number of attributes
+
+    // allocate memory for the attributes array
+    if(current_class->attr_num == 1)
+        current_class->attributes = (attr *)malloc(sizeof(attr));
+    else 
+        current_class->attributes = (attr *)realloc(current_class->attributes, current_class->attr_num * sizeof(attr));
+
+    if (current_class->attributes == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(1);
+    }
+
+    // copy the attribute name
+    current_class->attributes[current_class->attr_num - 1].name = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
+    strcpy(current_class->attributes[current_class->attr_num - 1].name, yytext);
+
+    // initialize the GetMethod and SetMethod flags
+    current_class->attributes[current_class->attr_num - 1].SetMethod = false;
+    current_class->attributes[current_class->attr_num - 1].SetMethod = false;
+
+    BEGIN(CLASS_ATTR);
+}
 	YY_BREAK
 case 7:
+*yy_cp = (yy_hold_char); /* undo effects of setting up yytext */
+(yy_c_buf_p) = yy_cp = yy_bp + 3;
+YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 163 "main.l"
+#line 206 "main.l"
 {
-                                //printf("%s\n", yytext);
-                                extractAttrFromMethod(yytext);
-                                //printf("%s\n", yytext);
-                                addGetMethodToAttr(yytext);
-                            }
+    printf("%s\n", yytext);
+    // extractAttrFromMethod(yytext);
+    // printf("%s\n", yytext);
+    // addSetMethodToAttr(yytext);
+
+    BEGIN(SET_STATE);
+}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 170 "main.l"
+#line 215 "main.l"
 {
-                                                //printf("%s\n", yytext);
-                                                BEGIN(MAIN_STATE);
-                                            }
+    // printf("%s.\n", yytext);
+    yytext[0] = tolower(yytext[0]);
+    addSetMethodToAttr(yytext);
+
+    BEGIN(CLASS_ATTR);
+}
 	YY_BREAK
 case 9:
-/* rule 9 can match eol */
+*yy_cp = (yy_hold_char); /* undo effects of setting up yytext */
+(yy_c_buf_p) = yy_cp = yy_bp + 3;
+YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 175 "main.l"
+#line 223 "main.l"
 {
-                    yytext = yytext + 4;
-                    //printf("%s\n", yytext);
+    // printf("%s\n", yytext);
+    // extractAttrFromMethod(yytext);
+    // printf("%s\n", yytext);
+    // addGetMethodToAttr(yytext);
 
-                    int arraySize = extractArraySize(yytext);
-                    //printf("%d\n", arraySize);
-                    
-                    for(int i = 0; i < arraySize; i++) {
-                        total_obj_num++;
-
-                        if(total_obj_num == 1)
-                            objects = (char **)malloc(sizeof(char *));
-                        else 
-                            objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
-
-                        if (objects == NULL) {
-                            fprintf(stderr, "Memory allocation failed\n");
-                            exit(1);
-                        }
-
-                        objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
-                        strcpy(objects[total_obj_num - 1], yytext);    
-                    }  
-                }
+    BEGIN(GET_STATE);
+}
 	YY_BREAK
 case 10:
-/* rule 10 can match eol */
 YY_RULE_SETUP
-#line 200 "main.l"
-{}
+#line 232 "main.l"
+{
+    // printf("%s.\n", yytext);
+    yytext[0] = tolower(yytext[0]);
+    addGetMethodToAttr(yytext);
+
+    BEGIN(CLASS_ATTR);
+}
 	YY_BREAK
 case 11:
-/* rule 11 can match eol */
 YY_RULE_SETUP
-#line 202 "main.l"
+#line 240 "main.l"
 {
-                                            yytext = yytext + 4;
-                                            //printf("%s\n", yytext);
-                                            //addObject(yytext);
-                                            total_obj_num++;
-
-                                            if(total_obj_num == 1)
-                                                objects = (char **)malloc(sizeof(char *));
-                                            else 
-                                                objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
-
-                                            if (objects == NULL) {
-                                                fprintf(stderr, "Memory allocation failed\n");
-                                                exit(1);
-                                            }
-
-                                            objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
-                                            strcpy(objects[total_obj_num - 1], yytext);    
-                                        }
+    //printf("%s\n", yytext);
+    BEGIN(MAIN_STATE);
+}
 	YY_BREAK
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 222 "main.l"
-{ }
+#line 245 "main.l"
+{
+    // yytext = yytext + 4;
+    printf("%s\n", yytext);
+
+    // int arraySize = extractArraySize(yytext);
+    // //printf("%d\n", arraySize);
+    
+    // for(int i = 0; i < arraySize; i++) {
+    //     total_obj_num++; // increase the number of objects
+
+    //     // allocate memory for the objects array
+    //     if(total_obj_num == 1)
+    //         objects = (char **)malloc(sizeof(char *));
+    //     else 
+    //         objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
+
+    //     if (objects == NULL) {
+    //         fprintf(stderr, "Memory allocation failed\n");
+    //         exit(1);
+    //     }
+
+    //     // allocate memory for the object name and copy it
+    //     objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
+    //     strcpy(objects[total_obj_num - 1], yytext);    
+    // }  
+
+    BEGIN(NEW_STATE);
+}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 223 "main.l"
+#line 274 "main.l"
+{
+    printf("%s\n", yytext);
+
+    int arraySize = extractArraySize(yytext);
+    //printf("%d\n", arraySize);
+    
+    for(int i = 0; i < arraySize; i++) {
+        total_obj_num++; // increase the number of objects
+
+        // allocate memory for the objects array
+        if(total_obj_num == 1)
+            objects = (char **)malloc(sizeof(char *));
+        else 
+            objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
+
+        if (objects == NULL) {
+            fprintf(stderr, "Memory allocation failed\n");
+            exit(1);
+        }
+
+        // allocate memory for the object name and copy it
+        objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
+        strcpy(objects[total_obj_num - 1], yytext);    
+    }  
+
+    BEGIN(MAIN_STATE);
+}
+	YY_BREAK
+case 14:
+/* rule 14 can match eol */
+YY_RULE_SETUP
+#line 302 "main.l"
+{}
+	YY_BREAK
+case 15:
+/* rule 15 can match eol */
+YY_RULE_SETUP
+#line 304 "main.l"
+{
+    // yytext = yytext + 4;
+    printf("%s\n", yytext);
+    // //addObject(yytext);
+    // total_obj_num++; // increase the number of objects
+
+    // // allocate memory for the objects array
+    // if(total_obj_num == 1)
+    //     objects = (char **)malloc(sizeof(char *));
+    // else 
+    //     objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
+
+    // if (objects == NULL) {
+    //     fprintf(stderr, "Memory allocation failed\n");
+    //     exit(1);
+    // }
+
+    // // allocate memory for the object name and copy it
+    // objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
+    // strcpy(objects[total_obj_num - 1], yytext);    
+
+    BEGIN(NEW_STATE);
+}
+	YY_BREAK
+case 16:
+YY_RULE_SETUP
+#line 328 "main.l"
+{
+    //printf("%s\n", yytext);
+    //addObject(yytext);
+    total_obj_num++; // increase the number of objects
+
+    // allocate memory for the objects array
+    if(total_obj_num == 1)
+        objects = (char **)malloc(sizeof(char *));
+    else 
+        objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
+
+    if (objects == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(1);
+    }
+
+    // allocate memory for the object name and copy it
+    objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
+    strcpy(objects[total_obj_num - 1], yytext);    
+
+    BEGIN(MAIN_STATE);
+}
+	YY_BREAK
+case 17:
+/* rule 17 can match eol */
+YY_RULE_SETUP
+#line 351 "main.l"
+{ }
+	YY_BREAK
+case 18:
+YY_RULE_SETUP
+#line 352 "main.l"
 ECHO;
 	YY_BREAK
-#line 1151 "lex.yy.c"
-case YY_STATE_EOF(INITIAL):
-case YY_STATE_EOF(CLASS_STATE):
-case YY_STATE_EOF(CLASS_ATTR):
-case YY_STATE_EOF(MAIN_STATE):
-	yyterminate();
+#line 1433 "lex.yy.c"
+			case YY_STATE_EOF(INITIAL):
+			case YY_STATE_EOF(CLASS_STATE):
+			case YY_STATE_EOF(CLASS_ATTR):
+			case YY_STATE_EOF(MAIN_STATE):
+			case YY_STATE_EOF(ATTR_NAME_STATE):
+			case YY_STATE_EOF(SET_STATE):
+			case YY_STATE_EOF(GET_STATE):
+			case YY_STATE_EOF(NEW_STATE):
+				yyterminate();
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1343,38 +1629,8 @@ static int yy_get_next_buffer (void)
 		while ( num_to_read <= 0 )
 			{ /* Not enough room in the buffer - grow it. */
 
-			/* just a shorter name for the current buffer */
-			YY_BUFFER_STATE b = YY_CURRENT_BUFFER_LVALUE;
-
-			int yy_c_buf_p_offset =
-				(int) ((yy_c_buf_p) - b->yy_ch_buf);
-
-			if ( b->yy_is_our_buffer )
-				{
-				int new_size = b->yy_buf_size * 2;
-
-				if ( new_size <= 0 )
-					b->yy_buf_size += b->yy_buf_size / 8;
-				else
-					b->yy_buf_size *= 2;
-
-				b->yy_ch_buf = (char *)
-					/* Include room in for 2 EOB chars. */
-					yyrealloc( (void *) b->yy_ch_buf,
-							 (yy_size_t) (b->yy_buf_size + 2)  );
-				}
-			else
-				/* Can't grow it, we don't own it. */
-				b->yy_ch_buf = NULL;
-
-			if ( ! b->yy_ch_buf )
-				YY_FATAL_ERROR(
-				"fatal error - scanner input buffer overflow" );
-
-			(yy_c_buf_p) = &b->yy_ch_buf[yy_c_buf_p_offset];
-
-			num_to_read = YY_CURRENT_BUFFER_LVALUE->yy_buf_size -
-						number_to_move - 1;
+			YY_FATAL_ERROR(
+"input buffer overflow, can't enlarge buffer because scanner uses REJECT" );
 
 			}
 
@@ -1436,21 +1692,20 @@ static int yy_get_next_buffer (void)
     
 	yy_current_state = (yy_start);
 
+	(yy_state_ptr) = (yy_state_buf);
+	*(yy_state_ptr)++ = yy_current_state;
+
 	for ( yy_cp = (yytext_ptr) + YY_MORE_ADJ; yy_cp < (yy_c_buf_p); ++yy_cp )
 		{
 		YY_CHAR yy_c = (*yy_cp ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
-		if ( yy_accept[yy_current_state] )
-			{
-			(yy_last_accepting_state) = yy_current_state;
-			(yy_last_accepting_cpos) = yy_cp;
-			}
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 173 )
+			if ( yy_current_state >= 236 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
+		*(yy_state_ptr)++ = yy_current_state;
 		}
 
 	return yy_current_state;
@@ -1464,22 +1719,18 @@ static int yy_get_next_buffer (void)
     static yy_state_type yy_try_NUL_trans  (yy_state_type yy_current_state )
 {
 	int yy_is_jam;
-    	char *yy_cp = (yy_c_buf_p);
-
+    
 	YY_CHAR yy_c = 1;
-	if ( yy_accept[yy_current_state] )
-		{
-		(yy_last_accepting_state) = yy_current_state;
-		(yy_last_accepting_cpos) = yy_cp;
-		}
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 173 )
+		if ( yy_current_state >= 236 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 172);
+	yy_is_jam = (yy_current_state == 235);
+	if ( ! yy_is_jam )
+		*(yy_state_ptr)++ = yy_current_state;
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -2068,6 +2319,11 @@ static int yy_init_globals (void)
     (yy_init) = 0;
     (yy_start) = 0;
 
+    (yy_state_buf) = 0;
+    (yy_state_ptr) = 0;
+    (yy_full_match) = 0;
+    (yy_lp) = 0;
+
 /* Defined in main.c */
 #ifdef YY_STDINIT
     yyin = stdin;
@@ -2097,6 +2353,9 @@ int yylex_destroy  (void)
 	/* Destroy the stack itself. */
 	yyfree((yy_buffer_stack) );
 	(yy_buffer_stack) = NULL;
+
+    yyfree ( (yy_state_buf) );
+    (yy_state_buf)  = NULL;
 
     /* Reset the globals. This is important in a non-reentrant scanner so the next time
      * yylex() is called, initialization will occur. */
@@ -2155,7 +2414,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 223 "main.l"
+#line 352 "main.l"
 
 
 int yywrap() {
@@ -2174,37 +2433,40 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    yyin = inputFile; // Set the input file for Flex
+    yyin = inputFile; // set the input file for Flex
 
-    yylex(); // Start lexical analysis
+    yylex(); // start lexical analysis
 
-    // printf("-------------------------------\n");
-
-    // for (int i = 0; i < class_num; i++) {
-    //     printf("%s : %d\n", classes[i].name, classes[i].attr_num);
-    //         for (int j = 0; j < classes[i].attr_num; j++) {
-    //             printf("%s: ", classes[i].attributes[j].name);
-    //             printf("set: %d get: %d\n", classes[i].attributes[j].SetMethod, classes[i].attributes[j].GetMethod);
-    //         }
-    //     printf("\n");
-    // }
-
+    // print the number of classes
+    printf("\n");
     printf("Clase %d: ", class_num);
 
+    // print the classes names
     for (int i = 0; i < class_num - 1; i++) {
         printf("%s, ", classes[i].name);
     }
 
     printf("%s\n", classes[class_num - 1].name);
 
+    printf("\n");
+    printf("----------------------------------------------------------------------\n");
+    printf("\n");
+
+    // add the objects to the array
     for (int i = 0; i < total_obj_num; i++) {
         addObject(objects[i]);
     }
 
+    // print the number of objects for each class
     for (int i = 0; i < class_num; i++) {
         printf("Obiecte %s: %d\n", classes[i].name, classes[i].obj_num);
     }
 
+    printf("\n");
+    printf("----------------------------------------------------------------------\n");
+    printf("\n");
+
+    // print the methods
     for (int i = 0; i < class_num; i++) {
         printf("%s:\n", classes[i].name);
 
@@ -2237,7 +2499,9 @@ int main(int argc, char **argv) {
         }
     }
 
-    // Free allocated memory
+    printf("\n");
+
+    // free allocated memory
     for (int i = 0; i < class_num; i++) {
         free(classes[i].name);
     }

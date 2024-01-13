@@ -83,141 +83,270 @@
     }
 %}
 
-%s CLASS_STATE CLASS_ATTR MAIN_STATE
+%s CLASS_STATE CLASS_ATTR MAIN_STATE ATTR_NAME_STATE SET_STATE GET_STATE NEW_STATE
 
 %%
 
 [[:space:]]*\/\/[[:space:]]*.*$ {}
 
 public[[:space:]]class   {  
-                            BEGIN(CLASS_STATE); 
-                            class_num++;
-                            pubic_class_num++;
+    BEGIN(CLASS_STATE); 
 
-                            if(pubic_class_num > 1) {
-                                printf("Eroare: mai multe clase publice\n");
-                                exit(1);
-                            }
+    class_num++; // increase the number of classes
+    pubic_class_num++; // increase the number of public classes
 
-                            if(class_num == 1)
-                                classes = (class *)malloc(sizeof(class));
-                            else 
-                                classes = (class *)realloc(classes, class_num * sizeof(class));
+    // print error if there are more than one public classes
+    if(pubic_class_num > 1) {
+        printf("Eroare: mai multe clase publice\n");
+        exit(1);
+    }
 
-                            if (classes == NULL) {
-                                fprintf(stderr, "Memory allocation failed\n");
-                                exit(1);
-                            }
-                        }
+    // allocate memory for the classes array
+    if(class_num == 1)
+        classes = (class *)malloc(sizeof(class));
+    else 
+        classes = (class *)realloc(classes, class_num * sizeof(class));
+
+    if (classes == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(1);
+    }
+}
 
 class   {  
-                    BEGIN(CLASS_STATE); 
-                    class_num++;
-                    if(class_num == 1)
-                        classes = (class *)malloc(sizeof(class));
-                    else 
-                        classes = (class *)realloc(classes, class_num * sizeof(class));
+    BEGIN(CLASS_STATE); 
 
-                    if (classes == NULL) {
-                        fprintf(stderr, "Memory allocation failed\n");
-                        exit(1);
-                    }
-                 }
+    class_num++; // increase the number of classes
+
+    // allocate memory for the classes array
+    if(class_num == 1)
+        classes = (class *)malloc(sizeof(class));
+    else 
+        classes = (class *)realloc(classes, class_num * sizeof(class));
+
+    if (classes == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(1);
+    }
+}
 
 <CLASS_STATE>[a-zA-Z]+   {  
-                            classes[class_num - 1].name = (char *)malloc((yyleng + 1) * sizeof(char));
-                            strcpy(classes[class_num - 1].name, yytext);
+    // copy the class name
+    classes[class_num - 1].name = (char *)malloc((yyleng + 1) * sizeof(char));
+    strcpy(classes[class_num - 1].name, yytext);
 
-                            classes[class_num - 1].attr_num = 0;
-                            classes[class_num - 1].obj_num = 0;
+    // initialize the attributes and objects number
+    classes[class_num - 1].attr_num = 0;
+    classes[class_num - 1].obj_num = 0;
 
-                            BEGIN(CLASS_ATTR); 
-                         }
+    BEGIN(CLASS_ATTR); 
+}
 
-<CLASS_ATTR>[[:space:]]*(public|private)[[:space:]][a-zA-Z\[\]]+[[:space:]][a-zA-Z]+; {
-                    // This part recognizes the specified line pattern
-                    char *lastWord = getLastWord(yytext);
-                    // printf("%s\n", lastWord);
+<CLASS_ATTR>[[:space:]]*(public|private)[[:space:]][a-zA-Z\[\]]+[[:space:]]/[a-zA-Z]+; {
+    // printf("OBJ: %s\n", yytext);
 
-                    class *current_class = &classes[class_num - 1];
-                    current_class->attr_num++;
-                
-                    if(current_class->attr_num == 1)
-                        current_class->attributes = (attr *)malloc(sizeof(attr));
-                    else 
-                        current_class->attributes = (attr *)realloc(current_class->attributes, current_class->attr_num * sizeof(attr));
-                
-                    current_class->attributes[current_class->attr_num - 1].name = (char *)malloc((strlen(lastWord) + 1) * sizeof(char));
-                    strcpy(current_class->attributes[current_class->attr_num - 1].name, lastWord);
-                    current_class->attributes[current_class->attr_num - 1].SetMethod = false;
-                    current_class->attributes[current_class->attr_num - 1].SetMethod = false;
-                }
 
-<CLASS_ATTR>set[a-zA-Z]+    {
-                                //printf("%s\n", yytext);
-                                extractAttrFromMethod(yytext);
-                                //printf("%s\n", yytext);
-                                addSetMethodToAttr(yytext);
-                            }
+    // // This part recognizes the specified line pattern
+    // char *lastWord = getLastWord(yytext);
+    // printf("lastWord: %s\n", lastWord);
 
-<CLASS_ATTR>get[a-zA-Z]+    {
-                                //printf("%s\n", yytext);
-                                extractAttrFromMethod(yytext);
-                                //printf("%s\n", yytext);
-                                addGetMethodToAttr(yytext);
-                            }
+    // class *current_class = &classes[class_num - 1]; // current class is the last class added to the array
+    // current_class->attr_num++; // increase the number of attributes
+
+    // // allocate memory for the attributes array
+    // if(current_class->attr_num == 1)
+    //     current_class->attributes = (attr *)malloc(sizeof(attr));
+    // else 
+    //     current_class->attributes = (attr *)realloc(current_class->attributes, current_class->attr_num * sizeof(attr));
+
+    // if (current_class->attributes == NULL) {
+    //     fprintf(stderr, "Memory allocation failed\n");
+    //     exit(1);
+    // }
+
+    // // copy the attribute name
+    // current_class->attributes[current_class->attr_num - 1].name = (char *)malloc((strlen(lastWord) + 1) * sizeof(char));
+    // strcpy(current_class->attributes[current_class->attr_num - 1].name, lastWord);
+
+    // // initialize the GetMethod and SetMethod flags
+    // current_class->attributes[current_class->attr_num - 1].SetMethod = false;
+    // current_class->attributes[current_class->attr_num - 1].SetMethod = false;
+
+    BEGIN(ATTR_NAME_STATE);
+}
+
+<ATTR_NAME_STATE>[a-zA-Z]+    {
+    // printf("ATTR: %s\n", yytext);
+
+    class *current_class = &classes[class_num - 1]; // current class is the last class added to the array
+    current_class->attr_num++; // increase the number of attributes
+
+    // allocate memory for the attributes array
+    if(current_class->attr_num == 1)
+        current_class->attributes = (attr *)malloc(sizeof(attr));
+    else 
+        current_class->attributes = (attr *)realloc(current_class->attributes, current_class->attr_num * sizeof(attr));
+
+    if (current_class->attributes == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(1);
+    }
+
+    // copy the attribute name
+    current_class->attributes[current_class->attr_num - 1].name = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
+    strcpy(current_class->attributes[current_class->attr_num - 1].name, yytext);
+
+    // initialize the GetMethod and SetMethod flags
+    current_class->attributes[current_class->attr_num - 1].SetMethod = false;
+    current_class->attributes[current_class->attr_num - 1].SetMethod = false;
+
+    BEGIN(CLASS_ATTR);
+}
+
+<CLASS_ATTR>set/[a-zA-Z]+    {
+    printf("%s\n", yytext);
+    // extractAttrFromMethod(yytext);
+    // printf("%s\n", yytext);
+    // addSetMethodToAttr(yytext);
+
+    BEGIN(SET_STATE);
+}
+
+<SET_STATE>[a-zA-Z]+    {
+    // printf("%s.\n", yytext);
+    yytext[0] = tolower(yytext[0]);
+    addSetMethodToAttr(yytext);
+
+    BEGIN(CLASS_ATTR);
+}
+
+<CLASS_ATTR>get/[a-zA-Z]+    {
+    // printf("%s\n", yytext);
+    // extractAttrFromMethod(yytext);
+    // printf("%s\n", yytext);
+    // addGetMethodToAttr(yytext);
+
+    BEGIN(GET_STATE);
+}
+
+<GET_STATE>[a-zA-Z]+    {
+    // printf("%s.\n", yytext);
+    yytext[0] = tolower(yytext[0]);
+    addGetMethodToAttr(yytext);
+
+    BEGIN(CLASS_ATTR);
+}
 
 "public static void main(String[] args)"    {
-                                                //printf("%s\n", yytext);
-                                                BEGIN(MAIN_STATE);
-                                            }
+    //printf("%s\n", yytext);
+    BEGIN(MAIN_STATE);
+}
 
-<MAIN_STATE>new[[:space:]]+[a-zA-Z]+\[[0-9]+\]    {
-                    yytext = yytext + 4;
-                    //printf("%s\n", yytext);
+<MAIN_STATE>new[[:space:]]+/[a-zA-Z]+\[[0-9]+\]    {
+    // yytext = yytext + 4;
+    printf("%s\n", yytext);
 
-                    int arraySize = extractArraySize(yytext);
-                    //printf("%d\n", arraySize);
-                    
-                    for(int i = 0; i < arraySize; i++) {
-                        total_obj_num++;
+    // int arraySize = extractArraySize(yytext);
+    // //printf("%d\n", arraySize);
+    
+    // for(int i = 0; i < arraySize; i++) {
+    //     total_obj_num++; // increase the number of objects
 
-                        if(total_obj_num == 1)
-                            objects = (char **)malloc(sizeof(char *));
-                        else 
-                            objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
+    //     // allocate memory for the objects array
+    //     if(total_obj_num == 1)
+    //         objects = (char **)malloc(sizeof(char *));
+    //     else 
+    //         objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
 
-                        if (objects == NULL) {
-                            fprintf(stderr, "Memory allocation failed\n");
-                            exit(1);
-                        }
+    //     if (objects == NULL) {
+    //         fprintf(stderr, "Memory allocation failed\n");
+    //         exit(1);
+    //     }
 
-                        objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
-                        strcpy(objects[total_obj_num - 1], yytext);    
-                    }  
-                }
+    //     // allocate memory for the object name and copy it
+    //     objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
+    //     strcpy(objects[total_obj_num - 1], yytext);    
+    // }  
+
+    BEGIN(NEW_STATE);
+}
+
+<NEW_STATE>[a-zA-Z]+\[[0-9]+\]    {
+    // printf("%s\n", yytext);
+
+    int arraySize = extractArraySize(yytext);
+    //printf("%d\n", arraySize);
+    
+    for(int i = 0; i < arraySize; i++) {
+        total_obj_num++; // increase the number of objects
+
+        // allocate memory for the objects array
+        if(total_obj_num == 1)
+            objects = (char **)malloc(sizeof(char *));
+        else 
+            objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
+
+        if (objects == NULL) {
+            fprintf(stderr, "Memory allocation failed\n");
+            exit(1);
+        }
+
+        // allocate memory for the object name and copy it
+        objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
+        strcpy(objects[total_obj_num - 1], yytext);    
+    }  
+
+    BEGIN(MAIN_STATE);
+}
 
 <MAIN_STATE>[a-zA-Z]+\[.*\][[:space:]]+=[[:space:]]+new[[:space:]]+[a-zA-Z]+ {}
 
-<MAIN_STATE>new[[:space:]]+[a-zA-Z]+    {
-                                            yytext = yytext + 4;
-                                            //printf("%s\n", yytext);
-                                            //addObject(yytext);
-                                            total_obj_num++;
+<MAIN_STATE>new[[:space:]]+/[a-zA-Z]+    {
+    // yytext = yytext + 4;
+    // printf("%s\n", yytext);
+    // //addObject(yytext);
+    // total_obj_num++; // increase the number of objects
 
-                                            if(total_obj_num == 1)
-                                                objects = (char **)malloc(sizeof(char *));
-                                            else 
-                                                objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
+    // // allocate memory for the objects array
+    // if(total_obj_num == 1)
+    //     objects = (char **)malloc(sizeof(char *));
+    // else 
+    //     objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
 
-                                            if (objects == NULL) {
-                                                fprintf(stderr, "Memory allocation failed\n");
-                                                exit(1);
-                                            }
+    // if (objects == NULL) {
+    //     fprintf(stderr, "Memory allocation failed\n");
+    //     exit(1);
+    // }
 
-                                            objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
-                                            strcpy(objects[total_obj_num - 1], yytext);    
-                                        }
+    // // allocate memory for the object name and copy it
+    // objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
+    // strcpy(objects[total_obj_num - 1], yytext);    
+
+    BEGIN(NEW_STATE);
+}
+
+<NEW_STATE>[a-zA-Z]+    {
+    //printf("%s\n", yytext);
+    //addObject(yytext);
+    total_obj_num++; // increase the number of objects
+
+    // allocate memory for the objects array
+    if(total_obj_num == 1)
+        objects = (char **)malloc(sizeof(char *));
+    else 
+        objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
+
+    if (objects == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(1);
+    }
+
+    // allocate memory for the object name and copy it
+    objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
+    strcpy(objects[total_obj_num - 1], yytext);    
+
+    BEGIN(MAIN_STATE);
+}
 
 .|\n    { }
 %%
@@ -238,37 +367,40 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    yyin = inputFile; // Set the input file for Flex
+    yyin = inputFile; // set the input file for Flex
 
-    yylex(); // Start lexical analysis
+    yylex(); // start lexical analysis
 
-    // printf("-------------------------------\n");
-
-    // for (int i = 0; i < class_num; i++) {
-    //     printf("%s : %d\n", classes[i].name, classes[i].attr_num);
-    //         for (int j = 0; j < classes[i].attr_num; j++) {
-    //             printf("%s: ", classes[i].attributes[j].name);
-    //             printf("set: %d get: %d\n", classes[i].attributes[j].SetMethod, classes[i].attributes[j].GetMethod);
-    //         }
-    //     printf("\n");
-    // }
-
+    // print the number of classes
+    printf("\n");
     printf("Clase %d: ", class_num);
 
+    // print the classes names
     for (int i = 0; i < class_num - 1; i++) {
         printf("%s, ", classes[i].name);
     }
 
     printf("%s\n", classes[class_num - 1].name);
 
+    printf("\n");
+    printf("----------------------------------------------------------------------\n");
+    printf("\n");
+
+    // add the objects to the array
     for (int i = 0; i < total_obj_num; i++) {
         addObject(objects[i]);
     }
 
+    // print the number of objects for each class
     for (int i = 0; i < class_num; i++) {
         printf("Obiecte %s: %d\n", classes[i].name, classes[i].obj_num);
     }
 
+    printf("\n");
+    printf("----------------------------------------------------------------------\n");
+    printf("\n");
+
+    // print the methods
     for (int i = 0; i < class_num; i++) {
         printf("%s:\n", classes[i].name);
 
@@ -301,7 +433,9 @@ int main(int argc, char **argv) {
         }
     }
 
-    // Free allocated memory
+    printf("\n");
+
+    // free allocated memory
     for (int i = 0; i < class_num; i++) {
         free(classes[i].name);
     }
