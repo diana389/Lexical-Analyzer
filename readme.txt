@@ -11,7 +11,7 @@ In rezolvare am folosit urmatoarele structuri:
 1. Identificarea si numararea claselor definite
     - in cazul in care se gaseste cuvantul "class" sau sintagma "public class", creste numarul de clase si se 
     trece in starea CLASS_STATE
-    - daca este a doua intalnire a sintagmei "public class", se afiseaza un mesaj de eroare si de iese din 
+    - daca este a doua intalnire a sintagmei "public class", se afiseaza un mesaj de eroare si se iese din 
     program
     - ClASS_STATE: se gaseste numele clasei, care se copiaza in vectorul de clase si se initializeaza toate 
     campurile, apoi se intra in starea CLASS_ATTR
@@ -28,7 +28,7 @@ In rezolvare am folosit urmatoarele structuri:
     contine toate instantele
     - MAIN_STATE: daca se gaseste o structura de tipul "nume_var[index] = new tip_instanta" este ignorata, 
     deoarece elementele vectorului au fost deja numarate la declarare
-    - MAIN_STATE: daca se gaseste o structura de tipul "new tip_instanta", se intra in starea NEW_STATE
+    - MAIN_STATE: daca se gaseste o alta structura de tipul "new tip_instanta", se intra in starea NEW_STATE
     - NEW_STATE: se adauga obiectul in lista instantelor
 
 Probleme aparute: separarea cazului in care este declarat un vector de crearea unei instante obisnuite
@@ -39,7 +39,7 @@ Probleme aparute: separarea cazului in care este declarat un vector de crearea u
     - ATTR_NAME_STATE: se adauga atributul in lista clasei curente si se revine in starea CLASS_ATTR
     - CLASS_ATTR: daca se gaseste o metoda "set", se intra in starea SET_STATE, iar pentru o metoda "get", in 
     starea GET_STATE
-    - SET_STATE: se seteaza flag-ul atributului caruia ii corespune metoda set gasita
-    - GET_STATE: se seteaza flag-ul atributului caruia ii corespune metoda get gasita
+    - SET_STATE: se seteaza flag-ul atributului caruia ii corespunde metoda set gasita
+    - GET_STATE: se seteaza flag-ul atributului caruia ii corespunde metoda get gasita
 
 Probleme aparute: tinerea evidentei fecarei metode pentru fiecare atribut
