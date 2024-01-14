@@ -1,4 +1,5 @@
-%{
+%{  // Stefan Diana 332CC
+
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
@@ -64,26 +65,26 @@
             fprintf(stderr, "Memory allocation failed\n");
             exit(1);
         }
+
+        // initialize the GetMethod and SetMethod flags
+        current_class->attributes[current_class->attr_num - 1].GetMethod = false;
+        current_class->attributes[current_class->attr_num - 1].SetMethod = false;
     }
 
     // function to add the SetMethod flag to an attribute
     void addSetMethodToAttr(char *method) {
-        for(int i = 0; i < class_num; i++) {
-            for(int j = 0; j < classes[i].attr_num; j++) {
-                if(strcmp(classes[i].attributes[j].name, method) == 0) {
-                    classes[i].attributes[j].GetMethod = true;
-                }
+        for(int j = 0; j < classes[class_num - 1].attr_num; j++) {
+            if(strcmp(classes[class_num - 1].attributes[j].name, method) == 0) {
+                classes[class_num - 1].attributes[j].SetMethod = true;
             }
         }
     }
 
     // function to add the GetMethod flag to an attribute
     void addGetMethodToAttr(char *method) {
-        for(int i = 0; i < class_num; i++) {
-            for(int j = 0; j < classes[i].attr_num; j++) {
-                if(strcmp(classes[i].attributes[j].name, method) == 0) {
-                    classes[i].attributes[j].SetMethod = true;
-                }
+        for(int j = 0; j < classes[class_num - 1].attr_num; j++) {
+            if(strcmp(classes[class_num - 1].attributes[j].name, method) == 0) {
+                classes[class_num - 1].attributes[j].GetMethod = true;
             }
         }
     }
@@ -103,7 +104,7 @@
 comments [[:space:]]*\/\/[[:space:]]*.*$
 public_class public[[:space:]]class
 class class
-word [a-zA-Z]+
+word [a-zA-Z0-9]+
 number [0-9]+
 type [a-zA-Z\[\]]+
 space [[:space:]]
@@ -334,14 +335,21 @@ int main(int argc, char **argv) {
 
         if (hasSet == true && hasGet == true) {
             printf("\tMetodele “get” si “set” sunt implementate\n");
+            continue;
         }
 
         if (hasGet == false) {
             printf("\tMetoda “get” nu este implementata pentru toate atributele\n");
         }
+        else {
+            printf("\tMetoda “get” este implementata pentru toate atributele\n");
+        }
         
         if (hasSet == false) {
             printf("\tMetoda “set” nu este implementata pentru toate atributele\n");
+        }
+        else {
+            printf("\tMetoda “set” este implementata pentru toate atributele\n");
         }
     }
 

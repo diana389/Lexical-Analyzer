@@ -1,0 +1,8 @@
+Stefan Diana 332CC
+TEMA FLEX - Varianta C 
+
+Platforma: Visual Studio Code (C)
+
+1. Identificarea si numararea claselor definite
+2. Determinarea numarului de instante create pentru fiecare clasa
+3. Verificarea daca sunt implementate metodele "get" si "set" pentru fiecare atribut al unei clase

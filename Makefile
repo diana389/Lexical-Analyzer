@@ -1,19 +1,14 @@
-CC = gcc
-LEX = flex
-CFLAGS = -Wall -Wno-unused-function
-LDFLAGS =
+# Stefan Diana 332CC
 
-TARGET = lexer
+all: main
 
-all: $(TARGET)
-
-$(TARGET): lex.yy.c
-	$(CC) $(CFLAGS) -o $(TARGET) lex.yy.c $(LDFLAGS)
+main: lex.yy.c
+	gcc -o main lex.yy.c -Wall -Wno-unused-function
 
 lex.yy.c: main.l
-	$(LEX) main.l
+	flex main.l
 
 clean:
-	rm -f $(TARGET) lex.yy.c
+	rm -f main lex.yy.c
 
 .PHONY: all clean

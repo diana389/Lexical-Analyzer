@@ -1,9 +1,0 @@
-buna
-class
-    public class
-pa
-    private String serialNumber; private String model;
-
-    private double price;
-
-public class
