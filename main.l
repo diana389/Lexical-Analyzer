@@ -5,26 +5,68 @@
     #include <stdbool.h>
     #include <ctype.h>
 
+    // class attributes structure
     typedef struct attr {
-        char* name;
-        bool GetMethod;
-        bool SetMethod;
+        char* name; // attribute name
+        bool GetMethod; // flag for the GetMethod
+        bool SetMethod; // flag for the SetMethod
     }attr;
 
+    // class structure
     typedef struct class {
-        char* name;
-        attr* attributes;
-        int attr_num;
-        int obj_num;
+        char* name; // class name
+        attr* attributes; // array of attributes
+        int attr_num; // number of attributes
+        int obj_num; // number of instances of the class
     }class;
 
-    int class_num = 0;
-    int pubic_class_num = 0;
-    class *classes;
-    char **objects;
-    int total_obj_num = 0;
-    char obj_name[100];
+    int class_num = 0; // number of classes
+    int pubic_class_num = 0; // number of public classes
+    class *classes; // array of classes
+    char **objects; // array of objects types
+    int total_obj_num = 0; // number of objects
+    char obj_type[100]; // current object type
 
+    void allocateMemoryClasses() {
+        // allocate memory for the classes array
+        if(class_num == 1)
+            classes = (class *)malloc(sizeof(class));
+        else 
+            classes = (class *)realloc(classes, class_num * sizeof(class));
+
+        if (classes == NULL) {
+            fprintf(stderr, "Memory allocation failed\n");
+            exit(1);
+        }
+    }
+
+    void allocateMemoryObjects() {
+        // allocate memory for the objects array
+        if(total_obj_num == 1)
+            objects = (char **)malloc(sizeof(char *));
+        else 
+            objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
+
+        if (objects == NULL) {
+            fprintf(stderr, "Memory allocation failed\n");
+            exit(1);
+        }
+    }
+
+    void allocateMemoryAttributes(class *current_class) {
+        // allocate memory for the attributes array
+        if(current_class->attr_num == 1)
+            current_class->attributes = (attr *)malloc(sizeof(attr));
+        else 
+            current_class->attributes = (attr *)realloc(current_class->attributes, current_class->attr_num * sizeof(attr));
+
+        if (current_class->attributes == NULL) {
+            fprintf(stderr, "Memory allocation failed\n");
+            exit(1);
+        }
+    }
+
+    // function to add the SetMethod flag to an attribute
     void addSetMethodToAttr(char *method) {
         for(int i = 0; i < class_num; i++) {
             for(int j = 0; j < classes[i].attr_num; j++) {
@@ -35,6 +77,7 @@
         }
     }
 
+    // function to add the GetMethod flag to an attribute
     void addGetMethodToAttr(char *method) {
         for(int i = 0; i < class_num; i++) {
             for(int j = 0; j < classes[i].attr_num; j++) {
@@ -45,6 +88,7 @@
         }
     }
 
+    // function to add an object to the objects count 
     void addObject(char *object) {
         for(int i = 0; i < class_num; i++) {
             if(strcmp(classes[i].name, object) == 0) {
@@ -56,11 +100,19 @@
 
 %s CLASS_STATE CLASS_ATTR MAIN_STATE ATTR_NAME_STATE SET_STATE GET_STATE NEW_STATE PARANTHESIS SIZE_STATE
 
+comments [[:space:]]*\/\/[[:space:]]*.*$
+public_class public[[:space:]]class
+class class
+word [a-zA-Z]+
+number [0-9]+
+type [a-zA-Z\[\]]+
+space [[:space:]]
+
 %%
 
-[[:space:]]*\/\/[[:space:]]*.*$ {}
+{comments} { /* ignore comments */ }
 
-public[[:space:]]class   {  
+{public_class}   {  // rule for public classes
     BEGIN(CLASS_STATE); 
 
     class_num++; // increase the number of classes
@@ -73,36 +125,20 @@ public[[:space:]]class   {
     }
 
     // allocate memory for the classes array
-    if(class_num == 1)
-        classes = (class *)malloc(sizeof(class));
-    else 
-        classes = (class *)realloc(classes, class_num * sizeof(class));
-
-    if (classes == NULL) {
-        fprintf(stderr, "Memory allocation failed\n");
-        exit(1);
-    }
+    allocateMemoryClasses();
 }
 
-class   {  
+{class}  {  // rule for regular classes
     
     BEGIN(CLASS_STATE); 
 
     class_num++; // increase the number of classes
 
     // allocate memory for the classes array
-    if(class_num == 1)
-        classes = (class *)malloc(sizeof(class));
-    else 
-        classes = (class *)realloc(classes, class_num * sizeof(class));
-
-    if (classes == NULL) {
-        fprintf(stderr, "Memory allocation failed\n");
-        exit(1);
-    }
+    allocateMemoryClasses();
 }
 
-<CLASS_STATE>[a-zA-Z]+   {  
+<CLASS_STATE>{word}   {   // rule for class names
 
     BEGIN(CLASS_ATTR); 
 
@@ -115,12 +151,12 @@ class   {
     classes[class_num - 1].obj_num = 0;
 }
 
-<CLASS_ATTR>[[:space:]]*(public|private)[[:space:]][a-zA-Z\[\]]+[[:space:]]/[a-zA-Z]+; {
+<CLASS_ATTR>{space}*(public|private){space}{type}{space}/{word}; { // rule for attribute lines (followed by their names) (ignore it)
 
     BEGIN(ATTR_NAME_STATE);
 }
 
-<ATTR_NAME_STATE>[a-zA-Z]+    {
+<ATTR_NAME_STATE>{word}    { // rule for attribute names
 
     BEGIN(CLASS_ATTR);
 
@@ -128,15 +164,7 @@ class   {
     current_class->attr_num++; // increase the number of attributes
 
     // allocate memory for the attributes array
-    if(current_class->attr_num == 1)
-        current_class->attributes = (attr *)malloc(sizeof(attr));
-    else 
-        current_class->attributes = (attr *)realloc(current_class->attributes, current_class->attr_num * sizeof(attr));
-
-    if (current_class->attributes == NULL) {
-        fprintf(stderr, "Memory allocation failed\n");
-        exit(1);
-    }
+    allocateMemoryAttributes(current_class);
 
     // copy the attribute name
     current_class->attributes[current_class->attr_num - 1].name = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
@@ -147,108 +175,92 @@ class   {
     current_class->attributes[current_class->attr_num - 1].SetMethod = false;
 }
 
-<CLASS_ATTR>set/[a-zA-Z]+    {
+<CLASS_ATTR>set/{word}    { // rule for SetMethod lines (followed by the attribute names) (ignore it)
 
     BEGIN(SET_STATE);
 }
 
-<SET_STATE>[a-zA-Z]+    {
+<SET_STATE>{word}     { // rule for attribute names
 
     yytext[0] = tolower(yytext[0]);
-    addSetMethodToAttr(yytext);
+    addSetMethodToAttr(yytext); // add the SetMethod flag to the attribute
 
     BEGIN(CLASS_ATTR);
 }
 
-<CLASS_ATTR>get/[a-zA-Z]+    {
+<CLASS_ATTR>get/{word}    { // rule for GetMethod lines (followed by the attribute names) (ignore it)
 
     BEGIN(GET_STATE);
 }
 
-<GET_STATE>[a-zA-Z]+    {
+<GET_STATE>{word}    { // rule for attribute names
 
     yytext[0] = tolower(yytext[0]);
-    addGetMethodToAttr(yytext);
+    addGetMethodToAttr(yytext); // add the GetMethod flag to the attribute
 
     BEGIN(CLASS_ATTR);
 }
 
-"public static void main(String[] args)"    {
+"public static void main(String[] args)"    { // rule for main method header (ignore it)
 
     BEGIN(MAIN_STATE);
 }
 
-<MAIN_STATE>new[[:space:]]+/[a-zA-Z]+\[[0-9]+\]    {
+<MAIN_STATE>new{space}+/{word}\[{number}\]    { // rule for the word "new" in an array initialization (ignore it)
 
     BEGIN(NEW_STATE);
 }
 
-<NEW_STATE>[a-zA-Z]+/\[[0-9]+\]    {
+<NEW_STATE>{word}/\[{number}\]    { // rule for the array type
 
     BEGIN(PARANTHESIS);
-    strcpy(obj_name, yytext);
+    strcpy(obj_type, yytext); // copy the array type
 }
 
-<PARANTHESIS>\[/[0-9]+\]    {
+<PARANTHESIS>\[/{number}\]    { // rule for the '[' character in an array initialization (ignore it)
 
     BEGIN(SIZE_STATE);
 }
 
-<SIZE_STATE>[0-9]+/\]    {
+<SIZE_STATE>{number}/\]    { // rule for the array size
 
     BEGIN(MAIN_STATE);
-    int arraySize = atoi(yytext);
+    int arraySize = atoi(yytext); // convert the array size to an integer
     
     for(int i = 0; i < arraySize; i++) {
         total_obj_num++; // increase the number of objects
 
         // allocate memory for the objects array
-        if(total_obj_num == 1)
-            objects = (char **)malloc(sizeof(char *));
-        else 
-            objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
+        allocateMemoryObjects();
 
-        if (objects == NULL) {
-            fprintf(stderr, "Memory allocation failed\n");
-            exit(1);
-        }
-
-        // allocate memory for the object name and copy it
-        objects[total_obj_num - 1] = (char *)malloc((strlen(obj_name) + 1) * sizeof(char));
-        strcpy(objects[total_obj_num - 1], obj_name);    
+        // allocate memory for the object type and copy it
+        objects[total_obj_num - 1] = (char *)malloc((strlen(obj_type) + 1) * sizeof(char));
+        strcpy(objects[total_obj_num - 1], obj_type);    
     }  
 }
 
-<MAIN_STATE>[a-zA-Z]+\[.*\][[:space:]]+=[[:space:]]+new[[:space:]]+[a-zA-Z]+ {}
+<MAIN_STATE>{word}\[.*\]{space}+={space}+new{space}+{word} { /* ignore array initialization */ }
 
-<MAIN_STATE>new[[:space:]]+/[a-zA-Z]+    {  
+<MAIN_STATE>new{space}+/{word}     {  // rule for the word "new" in an object initialization (ignore it)
 
     BEGIN(NEW_STATE);
 }
 
-<NEW_STATE>[a-zA-Z]+    {
+<NEW_STATE>{word}     { // rule for the object type
 
     BEGIN(MAIN_STATE);
     
     total_obj_num++; // increase the number of objects
 
     // allocate memory for the objects array
-    if(total_obj_num == 1)
-        objects = (char **)malloc(sizeof(char *));
-    else 
-        objects = (char **)realloc(objects, total_obj_num * sizeof(char *));
-
-    if (objects == NULL) {
-        fprintf(stderr, "Memory allocation failed\n");
-        exit(1);
-    }
+    allocateMemoryObjects();
 
     // allocate memory for the object name and copy it
     objects[total_obj_num - 1] = (char *)malloc((strlen(yytext) + 1) * sizeof(char));
     strcpy(objects[total_obj_num - 1], yytext);    
 }
 
-.|\n    { }
+.|\n    { /* ignore everything else */ }
 %%
 
 int yywrap() {
